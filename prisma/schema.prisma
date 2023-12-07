@@ -1,0 +1,30 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id    String  @id @default(cuid()) @map("_id")
+  createdAt DateTime  @default(now())
+  slug  String  @unique
+  title String
+  description String
+  img   String?
+  Posts Post[]
+}
+
+model Post {
+  id        String    @id @default(cuid()) @map("_id")
+  createdAt DateTime  @default(now())
+  slug      String    @unique
+  title     String
+  excerpt      String
+  img       String?
+  views     Int       @default(0)
+  categorySlug   String
+  category       Category  @relation(fields: [categorySlug], references: [slug])
+}
