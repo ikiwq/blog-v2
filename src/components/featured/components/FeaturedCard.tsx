@@ -1,24 +1,28 @@
+import { ArticleWithCategories } from "@/models/article.model"
+import { Article, Category } from "@prisma/client"
+import moment from "moment"
 import Link from "next/link"
 import { AiFillCalendar } from "react-icons/ai"
+import { FaCalendarAlt } from "react-icons/fa"
 
-type Props = {}
+type Props = {
+  article : Article
+  categories : Array<Category>
+}
 
 const FeaturedCard = (props: Props) => {
   return (
-    <Link href={"/"}>
+    <Link href={`article/${props.article.slug}`}>
       <div className="flex h-full">
         <div className=" bg-secondary px-2 flex flex-col py-2 w-full duration-200 group">
           <div className="flex flex-col items-start pb-2 h-full justify-center">
-            <div className="flex items-center gap-0.5 text-red-600 text-sm"><span><AiFillCalendar className='text-md' /></span><span></span>13/11/2023</div>
-            <h1 className="text-sm font-bold line-clamp-3 break-words text-ellipsis group-hover:duration-200 group-hover:text-red-600">
-              GLI AXOLOTL HANNO INVASO IL MONDOOO OOOOO OOOOOO AAAAAAAAAA AAAAAAAAAAA
+            <div className="flex items-center gap-0.5 text-red-600 text-sm"><span><FaCalendarAlt className='text-md' /></span><span></span>{moment(props?.article?.createdAt).format('MMM DD, YYYY')}</div>
+            <h1 className="text-md lg:text-sm font-bold line-clamp-3 break-words text-ellipsis group-hover:duration-200 group-hover:text-red-600">
+              {props.article.title}
             </h1>
           </div>
         </div>
-        <div className="min-w-fit">
-          <img className="h-full aspect-square object-cover" src="https://i.imgur.com/tZYaIYD.jpg" />
-        </div>
-
+        <img className="h-full aspect-square object-cover" src={props.article.img || ""} />
       </div>
     </Link>
   )

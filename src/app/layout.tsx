@@ -2,6 +2,7 @@ import Navbar from '@/components/navbar/Navbar'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import MobileMenu from '@/components/navbar/mobile-menu/MobileMenu'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,7 +20,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className='container duration-200 dark'>
-          <div className='wrapper md:max-w-3xl lg:max-w-5xl xl:max-w-7xl'>
+          <div className='wrapper md:max-w-3xl lg:max-w-5xl xl:max-w-6xl'>
+            <MobileMenu/>
             <Navbar />
             <div className='px-4 md:px-0'>
               {children}

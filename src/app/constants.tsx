@@ -4,6 +4,10 @@ import { BiCheckCircle, BiInfoCircle, BiXCircle } from 'react-icons/bi';
 export const THEME_LIGHT = "light";
 export const THEME_DARK = "dark";
 
+export const MOBILE_MENU_ID = "mobile_menu";
+
+export const PORTFOLIO_URL = "https://ikiwq-portfolio.vercel.app"
+
 export class TypeOfInfo {
     public static readonly DO = new TypeOfInfo("do", <BiCheckCircle/>);
     public static readonly INFO = new TypeOfInfo("info", <BiInfoCircle/>);
@@ -27,3 +31,5 @@ export const SOCIAL_MEDIAS = [
         href: ""
     }
 ]
+
+export const POST_PER_PAGE = 8;

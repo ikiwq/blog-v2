@@ -1,5 +1,5 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -8,23 +8,36 @@ datasource db {
 }
 
 model Category {
-  id    String  @id @default(cuid()) @map("_id")
-  createdAt DateTime  @default(now())
-  slug  String  @unique
-  title String
-  description String
-  img   String?
-  Posts Post[]
+  id            String      @id @default(cuid()) @map("_id")
+  createdAt     DateTime    @default(now())
+  slug          String      @unique
+  title         String
+  description   String
+  img           String?
+  categoryOnModel CategoryOnModel[]
 }
 
-model Post {
-  id        String    @id @default(cuid()) @map("_id")
-  createdAt DateTime  @default(now())
-  slug      String    @unique
-  title     String
-  excerpt      String
-  img       String?
-  views     Int       @default(0)
-  categorySlug   String
-  category       Category  @relation(fields: [categorySlug], references: [slug])
+model Article {
+  id              String            @id @default(cuid()) @map("_id")
+  createdAt       DateTime          @default(now())
+  slug            String            @unique
+  title           String
+  excerpt         String
+  content         String
+  img             String?
+  readingTime     String?           @default("0 Min read")
+  views           String            @default("0")
+  featured        String            @default("false")
+  editorsChoice   String            @default("false")
+  categoryOnModel CategoryOnModel[]
+  likes_count     String            @default("0")
+  liked           String            @default("false")
+}
+
+model CategoryOnModel {
+  id  String  @id @default(cuid()) @map("_id")
+  articleId String
+  article Article @relation(fields: [articleId], references: [id])
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
 }

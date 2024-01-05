@@ -1,13 +1,17 @@
-import { SOCIAL_MEDIAS } from '@/app/constants.tsx';
+"use client";
+import { PORTFOLIO_URL, SOCIAL_MEDIAS } from '@/app/constants.tsx';
+import { toggleMobileMenu } from '@/app/functions';
 import Link from 'next/link';
-import MobileMenu from './mobile-menu/MobileMenu';
+import { CiMenuBurger } from 'react-icons/ci';
 type Props = {}
 
 const Navbar = (props: Props) => {
   return (
     <div className='flex relative items-center justify-between py-4 px-2'>
       <div className='block md:hidden'>
-        <MobileMenu />
+        <div className='flex md:hidden text-2xl z-40 cursor-pointer relative' onClick={() => toggleMobileMenu()}>
+          <CiMenuBurger/>
+        </div>
       </div>
       <div className="flex items-center gap-5">
         <Link href={"/"}>
@@ -19,7 +23,7 @@ const Navbar = (props: Props) => {
           <li className="list-none flex gap-5 text-xl font-semibold">
             <Link href={"/category/"}><ul className='hover:text-red-600 duration-200 cursor-pointer flex items-center gap-1'>Categories</ul></Link>
             <Link href={"/latest/"}><ul className='hover:text-red-600 duration-200 cursor-pointer'>Latest</ul></Link>
-            <ul className='hover:text-red-600 duration-200 cursor-pointer'><a href='https://ikiwq.github.io/portfolio/' target="_blank" rel='noreferr'>About</a></ul>
+            <ul className='hover:text-red-600 duration-200 cursor-pointer'><a href={PORTFOLIO_URL} target="_blank" rel='noreferr'>About</a></ul>
           </li>
         </div>
       </div>

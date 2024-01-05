@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}"
   ],
   theme: {
     extend: {
@@ -10,7 +10,13 @@ const config: Config = {
         '400': '400ms',
         '600': '600ms'
       },
+      width : {
+        '7/10' : '70%',
+        '3/10' : '30%'
+      },
       height: {
+        '105' : '420px',
+        '115' : '460px',
         '120' : '480px',
         '185' : '740px',
         '225' : '900px'

@@ -1,41 +1,49 @@
 import CategoryCard from "@/components/category/categoryCard/CategoryCard";
+import { Article, Category } from "@prisma/client";
+import moment from "moment";
 import Link from "next/link";
-import { AiFillCalendar } from "react-icons/ai";
+import { FaCalendarAlt, FaClock } from "react-icons/fa";
 
-type Props = {}
+type Props = {
+  article: Article;
+  categories: Array<Category>;
+}
 
 const ArticleCard = (props: Props) => {
-  let categories = ["Software Engineer", "Java Development", "Webflux"];
-
   return (
-    <div className="flex flex-col gap-2">
-      <Link href={"/article/a"}>
-        <div className="group">
-          <div className="flex flex-col md:flex-row justify-between items-start md:pb-2">
-            <h1 className="text-2xl w-10/12 font-bold whitespace-pre-line break-words group-hover:text-red-600 duration-200">
-              Gesú morto impiccato in croce: si cercano responsabili
+    <div className="flex flex-col gap-1">
+      <Link href={'article/' + props?.article?.slug}>
+        <div className="group flex flex-col gap-1">
+          <div className="flex flex-col md:flex-row justify-between items-start">
+            <h1 className="text-2xl font-bold whitespace-pre-line break-words group-hover:text-red-600 duration-200">
+              {props?.article?.title}
             </h1>
-            <div className="flex items-center gap-1 text-red-600"><span><AiFillCalendar className='text-xl' /></span><span></span>13/11/2023</div>
+          </div>
+          <div className="flex gap-2 text-sm">
+            <div className="flex items-center gap-1 text-red-600">
+              <span><FaCalendarAlt className='text-md' /></span> <span>{moment(props?.article?.createdAt).format('MMM DD, YYYY')}</span>
+            </div>
+            <div className="border-r border-red-600 my-0.5"></div>
+            <div className="flex items-center gap-1 text-red-600">
+              <span><FaClock className='text-md' /></span> <span>3 Min read</span>
+            </div>
           </div>
           <div>
-            <p className="w-11/12">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <p className="w-full">
+              {props?.article?.excerpt}
             </p>
           </div>
         </div>
       </Link>
       <div className="flex flex-wrap gap-2">
-        {
-          categories.map((category, index) => {
-            return (
-              <CategoryCard categoryName={category} />
-            )
-          })
-        }
-      </div>
+            {
+              props?.categories && props?.categories.map((category, index) => {
+                return (
+                  <CategoryCard category={category} />
+                )
+              })
+            }
+          </div>
     </div>
   )
 }
