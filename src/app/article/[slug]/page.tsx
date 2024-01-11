@@ -2,12 +2,8 @@ import { getArticle, getSimilarArticles } from "@/app/functions";
 import MaxiArticleCard from "@/components/article/articleCard/maxiArticleCard/MaxiArticleCard";
 import CategoryCard from "@/components/category/categoryCard/CategoryCard";
 import CustomMarkdown from "@/components/markdown/CustomMarkdown";
-import { ArticleWithCategories } from "@/models/article.model";
 import moment from "moment";
-import { FaCalendarAlt, FaClock } from "react-icons/fa";
-import Markdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark, oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { FaCalendarAlt } from "react-icons/fa";
 
 const page = async ({ params }: { params: { slug: string } }) => {
 
@@ -40,18 +36,24 @@ const page = async ({ params }: { params: { slug: string } }) => {
                     <div className="py-4 w-full">
                         <img className="" src={article?.img || ""} />
                     </div>
-                    <div className="prose prose-invert prose-li:marker:text-red-600 prose-pre:bg-transparent prose-pre:-mb-8 prose-pre:-mt-6 prose-lg w-full" >
+                    <div className="prose dark:prose-invert prose-li:marker:text-red-600 prose-pre:bg-transparent prose-pre:-mb-8 prose-pre:-mt-6 prose-lg w-full duration-200" >
                         <CustomMarkdown content={article.content} />
                     </div>
                 </div>
-                <div className="pb-6 pt-4">
-                    <h1 className="text-xl font-bold text-red-600">RELATED CONTENT</h1>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                        {
-
-                        }
-                    </ul>
-                </div>
+                {
+                    relatedContent?.articles?.length > 0 && (
+                        <div className="pb-6 pt-4">
+                            <h1 className="text-xl font-bold text-red-600">RELATED CONTENT</h1>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                                {
+                                    relatedContent.articles.map((articleWithCategory)=>
+                                        <MaxiArticleCard article={articleWithCategory.article} categories={articleWithCategory.categories}/>
+                                    )
+                                }
+                            </ul>
+                        </div>
+                    )
+                }
                 <div className="pb-6">
                     <h1 className="text-xl font-bold text-red-600">EDITOR'S CHOICE</h1>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">

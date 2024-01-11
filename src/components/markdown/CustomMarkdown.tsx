@@ -1,7 +1,7 @@
-import React from 'react'
-import Markdown from 'react-markdown'
+import Markdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import remarkGfm from 'remark-gfm';
 
 type Props = {
     content: string
@@ -10,8 +10,9 @@ type Props = {
 const CustomMarkdown = (props: Props) => {
     return (
         <Markdown
+        remarkPlugins={[[remarkGfm, {singleTilde: false}]]}
             components={{
-                code({ node, className, children, ...props }) {
+                code({ node, className, children, ...props } : any) {
                     const match = /language-(\w+)/.exec(className || "");
                     return match ? (
                         <div className="relative pt-4">
@@ -19,15 +20,15 @@ const CustomMarkdown = (props: Props) => {
                                 {match[1].substring(0, 1).toUpperCase() + match[1].substring(1).toLocaleLowerCase()}
                             </div>
                             <SyntaxHighlighter
+                                children={String(children).replace(/\n$/, '')}
+                                language={match[1]}
                                 style={oneDark}
                                 PreTag="div"
-                                language={match[1]}
-                                children={String(children).replace(/\n$/, "")}
                                 {...props}
                             />
                         </div>
                     ) : (
-                        <code className={className ? className : ""} {...props}>
+                        <code className={className} {...props}>
                             {children}
                         </code>
                     );

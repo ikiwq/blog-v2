@@ -7,9 +7,8 @@ type Props = {
 }
 
 const MaxiArticleCard = (props: Props) => {
-
     return (
-        <div className="w-full h-full relative flex items-center bg-black text-white group">
+        <div className="w-full h-full relative flex items-center bg-black text-white group" style={{minHeight: "260px"}}>
             <div className="absolute top-0 left-0 w-full h-full bg-red-500 opacity-30 z-0 group-hover:bg-red-400 duration-200">
                 <img className="w-full h-full object-cover opacity-30" src="https://media.graphassets.com/fuM8HiASStCCJHdxIunU" />
             </div>

@@ -3,6 +3,7 @@ import { PORTFOLIO_URL, SOCIAL_MEDIAS } from '@/app/constants.tsx';
 import { toggleMobileMenu } from '@/app/functions';
 import Link from 'next/link';
 import { CiMenuBurger } from 'react-icons/ci';
+import ThemeButton from '../themeButton/ThemeButton';
 type Props = {}
 
 const Navbar = (props: Props) => {
@@ -26,6 +27,9 @@ const Navbar = (props: Props) => {
             <ul className='hover:text-red-600 duration-200 cursor-pointer'><a href={PORTFOLIO_URL} target="_blank" rel='noreferr'>About</a></ul>
           </li>
         </div>
+      </div>
+      <div>
+        <ThemeButton/>
       </div>
       <div className='flex items-center gap-10'>
         <li className="list-none gap-2 text-3xl hidden md:flex">

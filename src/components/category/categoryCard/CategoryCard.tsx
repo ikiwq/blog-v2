@@ -8,7 +8,7 @@ type Props = {
 const CategoryCard = (props: Props) => {
   return (
     <Link href={"/"}>
-      <div className="relative rounded-md flex group">
+      <div className="relative rounded-md flex group bg-black bg-opacity-70">
         <div className="px-2 py-2 hover:bg-red-400 duration-200 z-30 rounded-md hover:bg-opacity-20">
           <p className="text-sm text-white whitespace-nowrap">{props?.category?.title}</p>
         </div>
