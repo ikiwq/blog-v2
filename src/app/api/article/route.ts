@@ -20,22 +20,38 @@ const getOrderByQuery = (orderBy : string) => {
 export const GET = async (req : any) => {
     const { searchParams } = new URL(req.url);
 
-    const page = + !searchParams.get("page");
+    const page = searchParams.get("page") ?? 1;
     const cat = searchParams.get("category");
     const featured = searchParams.get("featured");
     const editorsChoice = searchParams.get("editorschoice");
     const orderBy = searchParams.get('orderBy');
+    
+    let stringLimit = searchParams.get('limit');
 
-    console.log("ed" + editorsChoice)
+    let limit;
+    if(stringLimit){
+        limit = +stringLimit
+    }else{
+        limit = POST_PER_PAGE
+    }
 
     const query = {
-        take: POST_PER_PAGE,
+        take: limit,
         skip: POST_PER_PAGE * (page - 1),
         where: {
             ...(featured  === "true" && {featured: "true"}),
             ...(featured  === "false" && {featured: "false"}),
             ...(editorsChoice === "true" && {editorsChoice : "true"}),
-            ...(editorsChoice === "false" && {editorsChoice : "false"})
+            ...(editorsChoice === "false" && {editorsChoice : "false"}),
+            ...(cat && {
+                categoryOnModel: {
+                    some: {
+                      category: {
+                        slug: cat
+                      },
+                    },
+                  },
+            })
         },
     };
 
@@ -74,7 +90,6 @@ export const GET = async (req : any) => {
 
         return new NextResponse(JSON.stringify(response), { status: 200 });
     } catch (err) {
-        console.log(err);
         return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
 };

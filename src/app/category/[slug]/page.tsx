@@ -1,57 +1,48 @@
+import { POST_PER_PAGE } from "@/app/constants";
+import { executeArticleQuery, getArticleByCategory, getCategory } from "@/app/functions"
 import ArticleCard from "@/components/article/articleCard/ArticleCard"
-import MiniArticleCard from "@/components/article/articleCard/miniArticleCard/MiniArticleCard"
-import CategoryCard from "@/components/category/categoryCard/CategoryCard"
+import PaginationControls from "@/components/paginationController/PaginationControls";
 
-type Props = {}
+type Props = {
+  searchParams: { [key: string]: string | string[] | undefined },
+  params: { slug: string }
+}
 
-const page = (props: Props) => {
-  let posts = [1, 2, 3, 4, 5, 6, 7];
-  let categories = ["Software Engineer", "Java Development", "Webflux", "Software Engineer", "Java Development", "Webflux"];
-  categories.sort((a, b) => a.length - b.length);
+const getData = async (page: number, categorySlug : string) => {
+  return executeArticleQuery(`http://localhost:3000/api/article?page=${page}&category=${categorySlug}`);
+}
+
+
+const page = async (props: Props) => {
+  const page = props.searchParams['page'] ?? '1';
+
+  const start = (Number(page) - 1) * Number(POST_PER_PAGE);
+  const end = start + Number(POST_PER_PAGE);
+
+  const category = await getCategory(props?.params?.slug);
+  const articlesWithCategories = await getData(Number(page), category.slug);
+
   return (
-    <div className='flex flex-col lg:flex-row gap-2 lg:gap-6 overflow-visible'>
-      <div className='flex flex-col gap-2 w-full lg:w-8/12 overflow-hidden'>
-        <div>
-          <h1 className='text-lg font-bold text-red-600'>MOST RECENT IN MAMMT</h1>
-          <div className='flex flex-col gap-10'>
+    <div className="flex flex-col">
+      <div className="flex w-full justify-center relative mt-8 md:mt-0 pb-8 min-h-screen">
+        <div className="flex flex-col w-full max-w-3xl">
+          <h1 className="text-xl font-bold text-red-600">{category?.title}</h1>
+          <div className="grid grid-cols  gap-2">
             {
-              posts.map((post, index) => {
+              articlesWithCategories?.articles.map((article, index) => {
                 return (
-                  <ArticleCard />
+                  <ArticleCard key={"article-card-" + index} article={article.article} categories={article.categories} />
                 )
               })
             }
           </div>
         </div>
       </div>
-      <div className='flex flex-col w-full lg:w-4/12 sticky top-0 lg:h-80 flex-shrink-0'>
-        <div>
-          <h1 className='text-lg font-bold text-red-600'>RELATED CATEGORIES</h1>
-          <div className='flex flex-wrap gap-2 py-2'>
-            {
-              categories.map((category, index) => {
-                return (
-                  <CategoryCard categoryName={category} />
-                )
-              })
-            }
-          </div>
-        </div>
-        <div className='flex flex-col'>
-          <h1 className='text-lg font-bold text-red-600'>MOST POPULAR IN MAMMT</h1>
-          <ul className='flex flex-col gap-2.5'>
-            {
-              categories.map((category, index) => {
-                return (
-                  <li>
-                    <MiniArticleCard />
-                  </li>
-                )
-              })
-            }
-          </ul>
-        </div>
-      </div>
+      <PaginationControls
+          hasNextPage={end < articlesWithCategories?.count}
+          hasPrevPage={start > 0}
+          totalElements={articlesWithCategories?.count}
+        />
     </div>
   )
 }

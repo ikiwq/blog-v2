@@ -25,11 +25,11 @@ export const SOCIAL_MEDIAS = [
         icon: <AiFillGithub />,
         href: "https://github.com/ikiwq"
     },
-    {
-        name: "Twitter",
-        icon: <AiOutlineTwitter />,
-        href: ""
-    }
+    // {
+    //     name: "Twitter",
+    //     icon: <AiOutlineTwitter />,
+    //     href: ""
+    // }
 ]
 
 export const POST_PER_PAGE = 8;

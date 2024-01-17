@@ -25,8 +25,8 @@ const page = async (props: Props) => {
         <h1 className="text-xl font-bold text-red-600">CATEGORIES </h1>
         <div className="grid grid-cols md:grid-cols-2 lg:grid-cols-3 gap-2">
           {
-            data.map((category) => (
-              <CategoryMaxiCard category={category}/>
+            data.map((category, index) => (
+              <CategoryMaxiCard key={"category-maxi-card-" + index} category={category}/>
             ))
           }
         </div>

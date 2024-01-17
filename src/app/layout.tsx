@@ -3,6 +3,7 @@ import MobileMenu from '@/components/navbar/mobile-menu/MobileMenu'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import Footer from '@/components/footer/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,15 +18,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className='dark'>
       <body className={inter.className}>
-        <div className='container duration-200'>
+        <div className='container'>
           <div className='wrapper md:max-w-3xl lg:max-w-5xl xl:max-w-6xl'>
             <MobileMenu/>
             <Navbar />
-            <div className='px-4 md:px-0'>
+            <div className='px-2 md:px-0 min-h-screen'>
               {children}
             </div>
+            <Footer/>
           </div>
         </div>
       </body>

@@ -12,10 +12,10 @@ const FeaturedCard = (props: Props) => {
   return (
     <Link href={`article/${props.article.slug}`}>
       <div className="flex h-full">
-        <div className="bg-neutral-200 dark:bg-neutral-900 px-2 flex flex-col py-1 w-full duration-200 group">
+        <div className="bg-neutral-200 dark:bg-neutral-900 px-2 flex flex-col py-1 w-full group">
           <div className="flex flex-col items-start pb-2 h-full justify-center">
             <div className="flex items-center gap-0.5 text-red-600 text-sm"><span><FaCalendarAlt className='text-md' /></span><span></span>{moment(props?.article?.createdAt).format('MMM DD, YYYY')}</div>
-            <h1 className="text-md lg:text-sm font-bold line-clamp-3 break-words text-ellipsis group-hover:duration-200 group-hover:text-red-600">
+            <h1 className="text-md lg:text-sm font-bold line-clamp-3 break-words text-ellipsis group-hover:duration-200 group-hover:text-red-600 duration-200">
               {props.article.title}
             </h1>
           </div>

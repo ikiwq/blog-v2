@@ -21,7 +21,7 @@ export const GET = async (req: any, { params }: { params: { slug: string } }) =>
                     }
                 },
                 {
-                    $limit: 4
+                    $limit: 5
                 }
             ]
         })
@@ -45,7 +45,6 @@ export const GET = async (req: any, { params }: { params: { slug: string } }) =>
 
         return new NextResponse(JSON.stringify(response), { status: 200 });
     } catch (err) {
-        console.log(err);
         return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
 }

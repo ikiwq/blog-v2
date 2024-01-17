@@ -12,8 +12,8 @@ type Props = {
 const ArticleCard = (props: Props) => {
   return (
     <div className="flex flex-col gap-1">
-      <Link href={'article/' + props?.article?.slug}>
-        <div className="group flex flex-col gap-1">
+      <Link href={'/article/' + props?.article?.slug}>
+        <div className="group flex flex-col ">
           <div className="flex flex-col md:flex-row justify-between items-start">
             <h1 className="text-2xl font-bold whitespace-pre-line break-words group-hover:text-red-600 duration-200">
               {props?.article?.title}
@@ -25,7 +25,7 @@ const ArticleCard = (props: Props) => {
             </div>
             <div className="border-r border-red-600 my-0.5"></div>
             <div className="flex items-center gap-1 text-red-600">
-              <span><FaClock className='text-md' /></span> <span>3 Min read</span>
+              <span><FaClock className='text-md' /></span> <span>{props?.article?.readingTime}</span>
             </div>
           </div>
           <div>

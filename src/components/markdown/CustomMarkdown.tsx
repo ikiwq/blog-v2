@@ -16,7 +16,7 @@ const CustomMarkdown = (props: Props) => {
                     const match = /language-(\w+)/.exec(className || "");
                     return match ? (
                         <div className="relative pt-4">
-                            <div className="absolute text-lg flex-grow-0 left-4 -top-2 px-2 py-1 rounded-t-md font-bold" style={{ backgroundColor: "rgb(40, 44, 52)" }}>
+                            <div className="absolute text-lg flex-grow-0 left-4 -top-2 px-4 py-1 rounded-t-md font-bold" style={{ backgroundColor: "rgb(40, 44, 52)" }}>
                                 {match[1].substring(0, 1).toUpperCase() + match[1].substring(1).toLocaleLowerCase()}
                             </div>
                             <SyntaxHighlighter
