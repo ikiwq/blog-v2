@@ -24,7 +24,6 @@ export const GET = async (req : any) => {
     const cat = searchParams.get("category");
     const featured = searchParams.get("featured");
     const editorsChoice = searchParams.get("editorschoice");
-    const orderBy = searchParams.get('orderBy');
     
     let stringLimit = searchParams.get('limit');
 
@@ -37,7 +36,7 @@ export const GET = async (req : any) => {
 
     const query = {
         take: limit,
-        skip: POST_PER_PAGE * (page - 1),
+        skip: POST_PER_PAGE * (Number(page) - 1),
         where: {
             ...(featured  === "true" && {featured: "true"}),
             ...(featured  === "false" && {featured: "false"}),

@@ -2,6 +2,7 @@ import { POST_PER_PAGE } from "@/app/constants";
 import { executeArticleQuery, getArticleByCategory, getCategory } from "@/app/functions"
 import ArticleCard from "@/components/article/articleCard/ArticleCard"
 import PaginationControls from "@/components/paginationController/PaginationControls";
+import { notFound } from "next/navigation";
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined },
@@ -20,6 +21,9 @@ const page = async (props: Props) => {
   const end = start + Number(POST_PER_PAGE);
 
   const category = await getCategory(props?.params?.slug);
+  if(category == null){
+    return notFound();
+  }
   const articlesWithCategories = await getData(Number(page), category.slug);
 
   return (

@@ -6,7 +6,11 @@ export const THEME_DARK = "dark";
 
 export const MOBILE_MENU_ID = "mobile_menu";
 
-export const PORTFOLIO_URL = "https://ikiwq-portfolio.vercel.app"
+export const PORTFOLIO_URL = "https://ikiwq-portfolio.vercel.app";
+
+export const POST_PER_PAGE = 8;
+
+export const CATEGORY_ON_HOMEPAGE = 10;
 
 export class TypeOfInfo {
     public static readonly DO = new TypeOfInfo("do", <BiCheckCircle/>);
@@ -31,5 +35,3 @@ export const SOCIAL_MEDIAS = [
     //     href: ""
     // }
 ]
-
-export const POST_PER_PAGE = 8;

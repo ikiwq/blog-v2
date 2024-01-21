@@ -19,9 +19,9 @@ const Featured = (props: Props) => {
         <ul className="w-full h-full flex flex-col md:grid md:grid-cols-2 xl:flex xl:flex-col gap-2">
           {
             minor.map((articleWithCategories, index)=> (
-              <ul className="w-full flex-1 overflow-hidden">
+              <li className="w-full flex-1 overflow-hidden" key={"featured-card-" + index}>
                 <FeaturedCard article={articleWithCategories.article} categories={articleWithCategories.categories}/>
-              </ul>
+              </li>
             ))
           }
         </ul>

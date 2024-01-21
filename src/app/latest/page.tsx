@@ -24,9 +24,9 @@ const page = async (props: Props) => {
         <h1 className="text-xl font-bold text-red-600">LATEST</h1>
         <div className="grid grid-cols gap-5 pb-6">
           {
-            articlesWithCategories.articles.map((article) => {
+            articlesWithCategories.articles.map((article, index) => {
               return (
-                <ArticleCard article={article.article} categories={article.categories} />
+                <ArticleCard key={"article-card-" + index} article={article.article} categories={article.categories} />
               )
             })
           }

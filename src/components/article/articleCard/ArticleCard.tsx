@@ -39,7 +39,7 @@ const ArticleCard = (props: Props) => {
             {
               props?.categories && props?.categories.map((category, index) => {
                 return (
-                  <CategoryCard category={category} />
+                  <CategoryCard key={"article-category-" + index} category={category} />
                 )
               })
             }

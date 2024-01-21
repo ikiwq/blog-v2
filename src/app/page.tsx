@@ -38,30 +38,38 @@ export default async function Home() {
         </div>
       </div>
       <div className='flex flex-col w-full sticky top-0 lg:h-80 flex-shrink-0 lg:w-3/10'>
-        <div className='flex flex-col gap-1'>
-          <h1 className='text-lg font-bold text-red-600'>POPULAR CATEGORIES</h1>
-          <div className='flex flex-wrap gap-2 pb-2'>
-            {
-              categories.map((category, index) => {
-                return (
-                  <CategoryCard key={"popular-category-" + index} category={category} />
-                )
-              })
-            }
-          </div>
-        </div>
-        <div className='flex flex-col'>
-          <h1 className='text-lg font-bold text-red-600'>EDITOR'S CHOICE</h1>
-          <ul className='flex flex-col gap-3'>
-            {
-              editorsChoice.articles.map((articleAndCategories, index) =>
-                <li>
-                  <MiniArticleCard key={"editors-choice-" + index} article={articleAndCategories.article} categories={articleAndCategories.categories} />
-                </li>
-              )
-            }
-          </ul>
-        </div>
+        {
+          categories?.length > 0 && (
+            <div className='flex flex-col gap-1'>
+              <h1 className='text-lg font-bold text-red-600'>POPULAR CATEGORIES</h1>
+              <div className='flex flex-wrap gap-2 pb-2'>
+                {
+                  categories.map((category, index) => {
+                    return (
+                      <CategoryCard key={"popular-category-" + index} category={category} />
+                    )
+                  })
+                }
+              </div>
+            </div>
+          )
+        }
+        {
+          editorsChoice?.articles?.length > 0 && (
+            <div className='flex flex-col'>
+              <h1 className='text-lg font-bold text-red-600'>EDITOR'S CHOICE</h1>
+              <ul className='flex flex-col gap-3'>
+                {
+                  editorsChoice.articles.map((articleAndCategories, index) =>
+                    <li key={"editors-choice-" + index}>
+                      <MiniArticleCard article={articleAndCategories.article} categories={articleAndCategories.categories} />
+                    </li>
+                  )
+                }
+              </ul>
+            </div>
+          )
+        }
       </div>
     </div>
   )

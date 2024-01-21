@@ -3,25 +3,27 @@ import MaxiArticleCard from "@/components/article/articleCard/maxiArticleCard/Ma
 import CategoryCard from "@/components/category/categoryCard/CategoryCard";
 import CustomMarkdown from "@/components/markdown/CustomMarkdown";
 import moment from "moment";
+import { notFound } from "next/navigation";
 import { FaCalendarAlt } from "react-icons/fa";
 
 const page = async ({ params }: { params: { slug: string } }) => {
 
     const { article, categories } = await getArticle(params.slug);
+    if (!article) return notFound();
 
     const relatedContent = await getSimilarArticles(article.title);
-    
-    const featured = await getFeatured(5).then((awc)=> {
+
+    const featured = await getFeatured(5).then((awc) => {
         return {
-            articles : awc.articles.filter(featuredArticle => {
-                for(let related of relatedContent.articles){
-                    if(related.article.slug == featuredArticle.article.slug){
+            articles: awc.articles.filter(featuredArticle => {
+                for (let related of relatedContent.articles) {
+                    if (related.article.slug == featuredArticle.article.slug) {
                         return false;
                     }
                 }
                 return (featuredArticle?.article?.slug != params.slug);
             }),
-            count : awc.count
+            count: awc.count
         }
     });
 
@@ -44,8 +46,8 @@ const page = async ({ params }: { params: { slug: string } }) => {
                         categories.length > 0 && (
                             <ul className='flex flex-wrap gap-2'>
                                 {categories.map((category, index) =>
-                                    <li>
-                                        <CategoryCard key={"category-card-" + index} category={category} />
+                                    <li key={"category-card-" + index}>
+                                        <CategoryCard category={category} />
                                     </li>
                                 )}
                             </ul>
@@ -65,7 +67,9 @@ const page = async ({ params }: { params: { slug: string } }) => {
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 {
                                     relatedContent.articles.map((articleWithCategory, index) =>
-                                        <MaxiArticleCard key={"related-article-card-" + index} article={articleWithCategory.article} categories={articleWithCategory.categories} />
+                                        <li key={"related-article-card-" + index}>
+                                            <MaxiArticleCard article={articleWithCategory.article} categories={articleWithCategory.categories} />
+                                        </li>
                                     )
                                 }
                             </ul>
@@ -79,9 +83,11 @@ const page = async ({ params }: { params: { slug: string } }) => {
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 {
                                     featured.articles
-                                    .map((articleWithCategory, index) =>
-                                        <MaxiArticleCard key={"maxi-article-card-" + index} article={articleWithCategory.article} categories={articleWithCategory.categories} />
-                                    )
+                                        .map((articleWithCategory, index) =>
+                                            <li key={"maxi-article-card-" + index}>
+                                                <MaxiArticleCard article={articleWithCategory.article} categories={articleWithCategory.categories} />
+                                            </li>
+                                        )
                                 }
                             </ul>
                         </div>

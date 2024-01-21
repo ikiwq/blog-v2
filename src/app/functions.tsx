@@ -6,6 +6,7 @@ export const toggleMobileMenu = () => {
     const menu = document.getElementById(MOBILE_MENU_ID);
     menu?.classList.toggle("flex");
     menu?.classList.toggle("hidden");
+    document.documentElement.classList.toggle("overflow-y-hidden")
 }
 
 export const getPopularCategories = async (): Promise<Array<Category>> => {
@@ -60,25 +61,28 @@ export const executeArticleQuery = async (url: string): Promise<ArticlesWithCoun
     return res.json();
 }
 
-export const getArticle = async (slug: string): Promise<ArticleWithCategories> => {
+export const getArticle = async (slug: string): Promise<ArticleWithCategories | {article : null, categories : null}> => {
     const res = await fetch(`http://localhost:3000/api/article/${slug}`, {
         cache: "no-store",
     });
 
     if (!res.ok) {
-        throw Error;
+        return {
+            article: null,
+            categories: null
+        };
     }
 
     return res.json();
 }
 
-export const getCategory = async(slug : string) : Promise<Category> => {
+export const getCategory = async(slug : string) : Promise<Category | null> => {
     const res = await fetch(`http://localhost:3000/api/category/${slug}`, {
         cache: "no-store",
     })
 
     if(!res.ok){
-        throw Error;
+        throw null;
     }
 
     return res.json();
