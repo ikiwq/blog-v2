@@ -1,6 +1,8 @@
 import { TypeOfInfo } from "@/app/constants"
 import Markdown from "react-markdown"
 import './articleinfo.css'
+import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight"
+import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 const ArticleInfo = ({ text, type }: { text: string, type: TypeOfInfo }) => {
     return (
@@ -15,11 +17,11 @@ const ArticleInfo = ({ text, type }: { text: string, type: TypeOfInfo }) => {
                             const match = /language-(\w+)/.exec(className || "");
                             return match ? (
                                 <SyntaxHighlighter
-                                    style={oneDark}
                                     PreTag="div"
                                     language={match[1]}
                                     children={String(children).replace(/\n$/, "")}
-                                    {...props}
+                                    style={oneDark}
+                                    // {...props}
                                 />
                             ) : (
                                 <code className={className ? className : ""} {...props}>

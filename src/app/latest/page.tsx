@@ -1,6 +1,6 @@
 import ArticleCard from "@/components/article/articleCard/ArticleCard"
 import { executeArticleQuery } from "../functions"
-import { POST_PER_PAGE } from "../constants"
+import { API_URL, POST_PER_PAGE } from "../constants"
 import PaginationControls from "@/components/paginationController/PaginationControls"
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 }
 
 const getData = async (page: number) => {
-  return executeArticleQuery(`http://localhost:3000/api/article?page=${page}`);
+  return executeArticleQuery(`${API_URL}/api/article?page=${page}`);
 }
 
 const page = async (props: Props) => {

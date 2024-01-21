@@ -12,6 +12,8 @@ export const POST_PER_PAGE = 8;
 
 export const CATEGORY_ON_HOMEPAGE = 10;
 
+export const API_URL = "http://127.0.0.1:3000";
+
 export class TypeOfInfo {
     public static readonly DO = new TypeOfInfo("do", <BiCheckCircle/>);
     public static readonly INFO = new TypeOfInfo("info", <BiInfoCircle/>);

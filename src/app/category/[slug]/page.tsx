@@ -1,4 +1,4 @@
-import { POST_PER_PAGE } from "@/app/constants";
+import { API_URL, POST_PER_PAGE } from "@/app/constants";
 import { executeArticleQuery, getArticleByCategory, getCategory } from "@/app/functions"
 import ArticleCard from "@/components/article/articleCard/ArticleCard"
 import PaginationControls from "@/components/paginationController/PaginationControls";
@@ -10,7 +10,7 @@ type Props = {
 }
 
 const getData = async (page: number, categorySlug : string) => {
-  return executeArticleQuery(`http://localhost:3000/api/article?page=${page}&category=${categorySlug}`);
+  return executeArticleQuery(`${API_URL}/api/article?page=${page}&category=${categorySlug}`);
 }
 
 

@@ -1,5 +1,5 @@
 import { ArticleWithCategories, ArticlesWithCount } from "@/models/article.model";
-import { MOBILE_MENU_ID } from "./constants"
+import { API_URL, MOBILE_MENU_ID } from "./constants"
 import { Category } from "@prisma/client";
 
 export const toggleMobileMenu = () => {
@@ -23,27 +23,27 @@ export const getPopularCategories = async (): Promise<Array<Category>> => {
 
 
 export const getRecentArticles = async (): Promise<ArticlesWithCount> => {
-    return executeArticleQuery(`http://localhost:3000/api/article`);
+    return executeArticleQuery(`${API_URL}/api/article`);
 }
 
 export const getUnmarkedRecentArticles = async (limit : number): Promise<ArticlesWithCount> => {
-    return executeArticleQuery(`http://localhost:3000/api/article?featured=false&editorschoice=false&limit=${limit}`);
+    return executeArticleQuery(`${API_URL}/api/article?featured=false&editorschoice=false&limit=${limit}`);
 }
 
 export const getEditorsChoice = async (): Promise<ArticlesWithCount> => {
-    return executeArticleQuery(`http://localhost:3000/api/article?editorschoice=true`);
+    return executeArticleQuery(`${API_URL}/api/article?editorschoice=true`);
 }
 
 export const getFeatured = async (limit : number): Promise<ArticlesWithCount> => {
-    return executeArticleQuery(`http://localhost:3000/api/article?featured=true&limit=${limit}`)
+    return executeArticleQuery(`${API_URL}/api/article?featured=true&limit=${limit}`)
 }
 
 export const getSimilarArticles = async (slug : string): Promise<ArticlesWithCount> => {
-    return executeArticleQuery(`http://localhost:3000/api/article/${slug}/similar`)
+    return executeArticleQuery(`${API_URL}/api/article/${slug}/similar`)
 }
 
 export const getArticleByCategory = async(categorySlug : string) => {
-    return executeArticleQuery(`http://localhost:3000/api/article?category=${categorySlug}`)
+    return executeArticleQuery(`${API_URL}/api/article?category=${categorySlug}`)
 }
 
 export const executeArticleQuery = async (url: string): Promise<ArticlesWithCount> => {
@@ -62,7 +62,7 @@ export const executeArticleQuery = async (url: string): Promise<ArticlesWithCoun
 }
 
 export const getArticle = async (slug: string): Promise<ArticleWithCategories | {article : null, categories : null}> => {
-    const res = await fetch(`http://localhost:3000/api/article/${slug}`, {
+    const res = await fetch(`${API_URL}/api/article/${slug}`, {
         cache: "no-store",
     });
 
@@ -77,7 +77,7 @@ export const getArticle = async (slug: string): Promise<ArticleWithCategories | 
 }
 
 export const getCategory = async(slug : string) : Promise<Category | null> => {
-    const res = await fetch(`http://localhost:3000/api/category/${slug}`, {
+    const res = await fetch(`${API_URL}/api/category/${slug}`, {
         cache: "no-store",
     })
 

@@ -1,16 +1,17 @@
-import MaxiArticleCard from "@/components/article/articleCard/maxiArticleCard/MaxiArticleCard"
 import CategoryMaxiCard from "@/components/category/categoryMaxiCard/MaxiArticleCard"
 import { Category } from "@prisma/client";
+import { notFound } from "next/navigation";
+import { API_URL } from "../constants";
 
 type Props = {}
 
-const getData = async () : Promise<Array<Category>> => {
-  const res = await fetch(`http://localhost:3000/api/category/`, {
+const getData = async () : Promise<Array<Category> | null> => {
+  const res = await fetch(`${API_URL}/api/category/`, {
     cache: "no-store",
   });
 
   if(!res.ok){
-    throw new Error("Failed to fetch for categories");
+    return null;
   }
 
   return res.json();
@@ -18,7 +19,8 @@ const getData = async () : Promise<Array<Category>> => {
 
 const page = async (props: Props) => {
   const data = await getData();
-  
+  if(data == null) return notFound();
+
   return (
     <div className="flex w-full justify-center relative mt-8 md:mt-0">
       <div className="flex flex-col w-full ">
