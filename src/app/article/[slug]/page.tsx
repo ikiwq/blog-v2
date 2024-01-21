@@ -31,7 +31,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
 
     return (
         <div className="flex w-full justify-center relative mt-8 md:mt-0">
-            <div className="flex flex-col max-w-3xl gap-2">
+            <div className="flex flex-col max-w-3xl w-full gap-2">
                 <div className="flex justify-between text-md">
                     <div className="flex items-center gap-1 text-red-600">
                         <span><FaCalendarAlt className='text-md' /></span> <span>{moment(article?.createdAt).format('MMM DD, YYYY')}</span>
