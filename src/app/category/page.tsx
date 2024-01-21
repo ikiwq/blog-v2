@@ -10,7 +10,7 @@ const getData = async () : Promise<Array<Category> | undefined> => {
     const res = await fetch(`${API_URL}/api/category/`, {
       cache: "no-store",
     });
-  
+    console.log("Request to "+ API_URL)
     if(!res.ok){
       return undefined;
     }
