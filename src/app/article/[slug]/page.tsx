@@ -1,4 +1,5 @@
-import { getArticle, getFeatured, getSimilarArticles } from "@/app/functions";
+
+import { getArticle, getFeatured, getSimilarArticles } from "@/common/functions";
 import MaxiArticleCard from "@/components/article/articleCard/maxiArticleCard/MaxiArticleCard";
 import CategoryCard from "@/components/category/categoryCard/CategoryCard";
 import CustomMarkdown from "@/components/markdown/CustomMarkdown";
@@ -8,8 +9,9 @@ import { FaCalendarAlt } from "react-icons/fa";
 
 const page = async ({ params }: { params: { slug: string } }) => {
 
-    const { article, categories } = await getArticle(params.slug);
-    if (!article) return notFound();
+    const articleWithCategory = await getArticle(params.slug);
+    if (!articleWithCategory) return notFound();
+    const { article, categories } = articleWithCategory;
 
     const relatedContent = await getSimilarArticles(article.title);
 

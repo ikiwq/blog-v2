@@ -1,6 +1,6 @@
 import ArticleCard from "@/components/article/articleCard/ArticleCard"
-import { executeArticleQuery } from "../functions"
-import { API_URL, POST_PER_PAGE } from "../constants"
+import { executeArticleQuery } from "../../common/functions"
+import { API_URL, POST_PER_PAGE } from "../../common/constants"
 import PaginationControls from "@/components/paginationController/PaginationControls"
 
 type Props = {
@@ -24,7 +24,7 @@ const page = async (props: Props) => {
         <h1 className="text-xl font-bold text-red-600">LATEST</h1>
         <div className="grid grid-cols gap-5 pb-6">
           {
-            articlesWithCategories.articles.map((article, index) => {
+            articlesWithCategories && articlesWithCategories.articles.map((article, index) => {
               return (
                 <ArticleCard key={"article-card-" + index} article={article.article} categories={article.categories} />
               )

@@ -1,4 +1,4 @@
-import { AiFillGithub, AiOutlineTwitter, AiOutlineWarning } from 'react-icons/ai';
+import { AiFillGithub, AiOutlineWarning } from 'react-icons/ai';
 import { BiCheckCircle, BiInfoCircle, BiXCircle } from 'react-icons/bi';
 
 export const THEME_LIGHT = "light";
@@ -10,9 +10,9 @@ export const PORTFOLIO_URL = "https://ikiwq-portfolio.vercel.app";
 
 export const POST_PER_PAGE = 8;
 
-export const CATEGORY_ON_HOMEPAGE = 10;
+export const API_URL = process.env.PUBLIC_API_URL;
 
-export const API_URL = "http://127.0.0.1:3000";
+export const CATEGORY_ON_HOMEPAGE = 10;
 
 export class TypeOfInfo {
     public static readonly DO = new TypeOfInfo("do", <BiCheckCircle/>);

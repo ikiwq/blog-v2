@@ -1,5 +1,5 @@
-import { API_URL, POST_PER_PAGE } from "@/app/constants";
-import { executeArticleQuery, getArticleByCategory, getCategory } from "@/app/functions"
+import { API_URL, POST_PER_PAGE } from "@/common/constants";
+import { executeArticleQuery, getArticleByCategory, getCategory } from "@/common/functions"
 import ArticleCard from "@/components/article/articleCard/ArticleCard"
 import PaginationControls from "@/components/paginationController/PaginationControls";
 import { notFound } from "next/navigation";

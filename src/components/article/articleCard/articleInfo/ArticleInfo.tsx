@@ -1,4 +1,4 @@
-import { TypeOfInfo } from "@/app/constants"
+import { TypeOfInfo } from "@/common/constants"
 import Markdown from "react-markdown"
 import './articleinfo.css'
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight"

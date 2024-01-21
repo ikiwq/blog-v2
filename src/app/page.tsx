@@ -2,7 +2,7 @@ import ArticleCard from '@/components/article/articleCard/ArticleCard';
 import MiniArticleCard from '@/components/article/articleCard/miniArticleCard/MiniArticleCard';
 import CategoryCard from '@/components/category/categoryCard/CategoryCard';
 import Featured from '@/components/featured/Featured';
-import { getEditorsChoice, getFeatured, getPopularCategories, getUnmarkedRecentArticles } from './functions';
+import { getEditorsChoice, getFeatured, getPopularCategories, getUnmarkedRecentArticles } from '../common/functions';
 
 
 
@@ -17,7 +17,7 @@ export default async function Home() {
     <div className='flex flex-col lg:flex-row gap-3 lg:gap-20 overflow-visible'>
       <div className='flex flex-col gap-3 w-full lg:w-7/10 overflow-hidden'>
         {
-          featuredArticles.articles.length > 4 && (
+          featuredArticles && featuredArticles.articles.length > 4 && (
             true && (
               <div className='flex flex-col gap-1 h-225 md:h-185 xl:h-115'>
                 <p className='text-lg font-bold text-red-600'>FEATURED</p>
@@ -30,7 +30,7 @@ export default async function Home() {
           <h1 className='text-lg font-bold text-red-600'>MOST RECENT</h1>
           <div className='flex flex-col gap-5'>
             {
-              recentPosts.articles.map((articleRes, index) =>
+              recentPosts && recentPosts.articles.map((articleRes, index) =>
                 <ArticleCard key={"most-recent-" + index} article={articleRes.article} categories={articleRes.categories} />
               )
             }
@@ -39,7 +39,7 @@ export default async function Home() {
       </div>
       <div className='flex flex-col w-full sticky top-0 lg:h-80 flex-shrink-0 lg:w-3/10'>
         {
-          categories?.length > 0 && (
+          categories && categories?.length > 0 && (
             <div className='flex flex-col gap-1'>
               <h1 className='text-lg font-bold text-red-600'>POPULAR CATEGORIES</h1>
               <div className='flex flex-wrap gap-2 pb-2'>
@@ -55,7 +55,7 @@ export default async function Home() {
           )
         }
         {
-          editorsChoice?.articles?.length > 0 && (
+          editorsChoice && editorsChoice?.articles?.length > 0 && (
             <div className='flex flex-col'>
               <h1 className='text-lg font-bold text-red-600'>EDITOR'S CHOICE</h1>
               <ul className='flex flex-col gap-3'>

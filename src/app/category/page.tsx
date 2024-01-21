@@ -1,25 +1,29 @@
 import CategoryMaxiCard from "@/components/category/categoryMaxiCard/MaxiArticleCard"
 import { Category } from "@prisma/client";
 import { notFound } from "next/navigation";
-import { API_URL } from "../constants";
+import { API_URL } from "../../common/constants";
 
 type Props = {}
 
-const getData = async () : Promise<Array<Category> | null> => {
-  const res = await fetch(`${API_URL}/api/category/`, {
-    cache: "no-store",
-  });
-
-  if(!res.ok){
-    return null;
+const getData = async () : Promise<Array<Category> | undefined> => {
+  try{
+    const res = await fetch(`${API_URL}/api/category/`, {
+      cache: "no-store",
+    });
+  
+    if(!res.ok){
+      return undefined;
+    }
+  
+    return res.json();
+  } catch(err){
+    console.log(err);
   }
-
-  return res.json();
 }
 
 const page = async (props: Props) => {
   const data = await getData();
-  if(data == null) return notFound();
+  if(!data) return notFound();
 
   return (
     <div className="flex w-full justify-center relative mt-8 md:mt-0">

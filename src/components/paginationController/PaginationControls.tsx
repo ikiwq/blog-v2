@@ -1,5 +1,5 @@
 'use client';
-import { POST_PER_PAGE } from '@/app/constants';
+import { POST_PER_PAGE } from '@/common/constants';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import React, { FC } from 'react'

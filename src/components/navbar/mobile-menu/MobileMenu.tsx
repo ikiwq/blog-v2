@@ -1,7 +1,7 @@
 "use client";
-import { MOBILE_MENU_ID, PORTFOLIO_URL } from '@/app/constants';
+import { MOBILE_MENU_ID, PORTFOLIO_URL } from '@/common/constants';
 import Link from 'next/link';
-import { toggleMobileMenu } from '@/app/functions';
+import { toggleMobileMenu } from '@/common/functions';
 import { AiFillGithub, AiOutlineTwitter } from 'react-icons/ai';
 
 const MobileMenu = () => {

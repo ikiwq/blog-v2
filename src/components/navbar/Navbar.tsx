@@ -1,6 +1,6 @@
 "use client";
-import { PORTFOLIO_URL, SOCIAL_MEDIAS } from '@/app/constants.tsx';
-import { toggleMobileMenu } from '@/app/functions';
+import { PORTFOLIO_URL, SOCIAL_MEDIAS } from '@/common/constants';
+import { toggleMobileMenu } from '@/common/functions';
 import Link from 'next/link';
 import { CiMenuBurger } from 'react-icons/ci';
 import ThemeButton from '../themeButton/ThemeButton';

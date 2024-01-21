@@ -1,4 +1,4 @@
-import { POST_PER_PAGE } from "@/app/constants";
+import { POST_PER_PAGE } from "@/common/constants";
 import { ArticleWithCategories, ArticlesWithCount } from "@/models/article.model";
 import prisma from "@/utils/connect";
 import { Category, CategoryOnModel } from "@prisma/client";

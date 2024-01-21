@@ -1,4 +1,4 @@
-import { CATEGORY_ON_HOMEPAGE } from "@/app/constants";
+import { CATEGORY_ON_HOMEPAGE } from "@/common/constants";
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
 

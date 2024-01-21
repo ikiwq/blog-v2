@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import './themebutton.css'
-import { THEME_DARK } from '@/app/constants';
+import { THEME_DARK } from '@/common/constants';
 
 type Props = {}
 
