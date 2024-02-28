@@ -1,3 +1,4 @@
+import { CATEGORIES_PATH } from "@/common/constants"
 import { Category } from "@prisma/client"
 import Link from "next/link"
 
@@ -7,7 +8,7 @@ type Props = {
 
 const CategoryCard = (props: Props) => {
   return (
-    <Link href={"/category/" + props?.category?.slug}>
+    <Link href={CATEGORIES_PATH + props?.category?.slug}>
       <div className="relative rounded-md flex group duration-200" style={{backgroundColor: "rgb(30, 0, 0)"}}>
         <div className="px-2 py-2 hover:bg-red-400 duration-200 z-30 rounded-md hover:bg-opacity-20">
           <p className="text-sm text-white whitespace-nowrap">{props?.category?.title}</p>

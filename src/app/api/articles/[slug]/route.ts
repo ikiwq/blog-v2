@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import prisma from "@/utils/connect";
-import { CategoryOnModel } from "@prisma/client";
-import { ArticleWithCategories } from "@/models/article.model";
 
 export const GET = async (req: any, { params }: { params: { slug: string } }) => {
     const { slug } = params;
@@ -12,7 +10,7 @@ export const GET = async (req: any, { params }: { params: { slug: string } }) =>
                 slug: slug,
             },
             include: {
-                categoryOnModel: {
+                categories_relations: {
                     include: {
                         category: true
                     }
@@ -20,15 +18,12 @@ export const GET = async (req: any, { params }: { params: { slug: string } }) =>
             }
         })
 
-        let categoriesOnModel: Array<CategoryOnModel> = (article as any).categoryOnModel;
-        let categories = categoriesOnModel.map((categoryOnModel) => (categoryOnModel as any).category);
-
-        let response: ArticleWithCategories = {
-            article: article!,
-            categories: categories,
+        const res = {
+            ...article,
+            categories : article?.categories_relations.map(cr => cr.category)
         }
 
-        return new NextResponse(JSON.stringify(response), { status: 200 });
+        return new NextResponse(JSON.stringify(res), { status: 200 });
     } catch (err) {
         return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }

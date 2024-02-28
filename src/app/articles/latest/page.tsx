@@ -1,19 +1,22 @@
+import { API_URL, POST_PER_PAGE } from "@/common/constants"
+import { executeArticleQuery, getRecentArticles } from "@/common/functions"
 import ArticleCard from "@/components/article/articleCard/ArticleCard"
-import { executeArticleQuery } from "../../common/functions"
-import { API_URL, POST_PER_PAGE } from "../../common/constants"
 import PaginationControls from "@/components/paginationController/PaginationControls"
+import { Metadata } from "next"
+import Head from "next/head"
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined }
 }
 
-const getData = async (page: number) => {
-  return executeArticleQuery(`${API_URL}/api/article?page=${page}`);
+export const metadata : Metadata = {
+  title: "Latest articles",
+  description: "Latest articles from the Ikiwq Blog."
 }
 
 const page = async (props: Props) => {
   const page = props.searchParams['page'] ?? '1';
-  const articlesWithCategories = await getData(Number(page));
+  const articles = await getRecentArticles(Number(page));
 
   const start = (Number(page) - 1) * Number(POST_PER_PAGE);
   const end = start + Number(POST_PER_PAGE);
@@ -24,17 +27,17 @@ const page = async (props: Props) => {
         <h1 className="text-xl font-bold text-red-600">LATEST</h1>
         <div className="grid grid-cols gap-5 pb-6">
           {
-            articlesWithCategories && articlesWithCategories.articles.map((article, index) => {
+            articles && articles.articles.map((article, index) => {
               return (
-                <ArticleCard key={"article-card-" + index} article={article.article} categories={article.categories} />
+                <ArticleCard key={"article-card-" + index} article={article} />
               )
             })
           }
         </div>
         <PaginationControls
-          hasNextPage={end < articlesWithCategories?.count}
+          hasNextPage={end < articles?.count!}
           hasPrevPage={start > 0}
-          totalElements={articlesWithCategories?.count}
+          totalElements={articles?.count!}
         />
       </div>
     </div>

@@ -1,37 +1,22 @@
+import { getCategories, getFeatured, getUnmarkedRecentArticles } from '@/common/functions';
 import ArticleCard from '@/components/article/articleCard/ArticleCard';
 import MiniArticleCard from '@/components/article/articleCard/miniArticleCard/MiniArticleCard';
 import CategoryCard from '@/components/category/categoryCard/CategoryCard';
-import Featured from '@/components/featured/Featured';
-import { getEditorsChoice, getFeatured, getPopularCategories, getUnmarkedRecentArticles } from '../common/functions';
-
-
 
 export default async function Home() {
-
   let recentPosts = await getUnmarkedRecentArticles(15);
-  let categories = await getPopularCategories();
+  let categories = await getCategories();
   let featuredArticles = await getFeatured(5);
-  let editorsChoice = await getEditorsChoice();
 
   return (
     <div className='flex flex-col lg:flex-row gap-3 lg:gap-20 overflow-visible'>
       <div className='flex flex-col gap-3 w-full lg:w-7/10 overflow-hidden'>
-        {
-          featuredArticles && featuredArticles.articles.length > 4 && (
-            true && (
-              <div className='flex flex-col gap-1 h-225 md:h-185 xl:h-115'>
-                <p className='text-lg font-bold text-red-600'>FEATURED</p>
-                <Featured articles={featuredArticles.articles} />
-              </div>
-            )
-          )
-        }
         <div className='flex flex-col'>
           <h1 className='text-lg font-bold text-red-600'>MOST RECENT</h1>
           <div className='flex flex-col gap-5'>
             {
-              recentPosts && recentPosts.articles.map((articleRes, index) =>
-                <ArticleCard key={"most-recent-" + index} article={articleRes.article} categories={articleRes.categories} />
+              recentPosts && recentPosts.articles.map((article, index) =>
+                <ArticleCard key={"most-recent-" + index} article={article} />
               )
             }
           </div>
@@ -55,14 +40,14 @@ export default async function Home() {
           )
         }
         {
-          editorsChoice && editorsChoice?.articles?.length > 0 && (
+          featuredArticles && featuredArticles?.articles?.length > 0 && (
             <div className='flex flex-col'>
-              <h1 className='text-lg font-bold text-red-600'>EDITOR'S CHOICE</h1>
+              <h1 className='text-lg font-bold text-red-600'>FEATURED</h1>
               <ul className='flex flex-col gap-3'>
                 {
-                  editorsChoice.articles.map((articleAndCategories, index) =>
+                  featuredArticles.articles.map((article, index) =>
                     <li key={"editors-choice-" + index}>
-                      <MiniArticleCard article={articleAndCategories.article} categories={articleAndCategories.categories} />
+                      <MiniArticleCard article={article}/>
                     </li>
                   )
                 }

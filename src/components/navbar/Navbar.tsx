@@ -1,5 +1,5 @@
 "use client";
-import { PORTFOLIO_URL, SOCIAL_MEDIAS } from '@/common/constants';
+import { ARTICLES_PATH, CATEGORIES_PATH, PORTFOLIO_URL, SOCIAL_MEDIAS } from '@/common/constants';
 import { toggleMobileMenu } from '@/common/functions';
 import Link from 'next/link';
 import { CiMenuBurger } from 'react-icons/ci';
@@ -22,8 +22,8 @@ const Navbar = (props: Props) => {
         <div className='hidden md:block border-r border-black dark:border-white h-5/6'></div>
         <div className='hidden md:block'>
           <li className="list-none flex gap-5 text-xl font-semibold">
-            <ul className='hover:text-red-600 duration-200 cursor-pointer flex items-center gap-1'><Link href={"/category/"}>Categories</Link></ul>
-            <ul className='hover:text-red-600 duration-200 cursor-pointer'><Link href={"/latest/"}>Latest</Link></ul>
+            <ul className='hover:text-red-600 duration-200 cursor-pointer flex items-center gap-1'><Link href={CATEGORIES_PATH}>Categories</Link></ul>
+            <ul className='hover:text-red-600 duration-200 cursor-pointer'><Link href={ARTICLES_PATH + "latest/"}>Latest</Link></ul>
             <ul className='hover:text-red-600 duration-200 cursor-pointer'><a href={PORTFOLIO_URL} target="_blank" rel='noreferr'>About</a></ul>
           </li>
         </div>

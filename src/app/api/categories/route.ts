@@ -7,7 +7,7 @@ export const GET = async () => {
         const categories = await prisma.category.findMany({
             take: CATEGORY_ON_HOMEPAGE,
             orderBy: {
-                categoryOnModel: {
+                articles_relations: {
                     _count: "desc"
                 }
             }

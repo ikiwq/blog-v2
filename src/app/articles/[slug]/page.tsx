@@ -1,5 +1,5 @@
 
-import { getArticle, getFeatured, getSimilarArticles } from "@/common/functions";
+import { getArticle, getFeaturedAndExclude, getSimilarArticles } from "@/common/functions";
 import MaxiArticleCard from "@/components/article/articleCard/maxiArticleCard/MaxiArticleCard";
 import CategoryCard from "@/components/category/categoryCard/CategoryCard";
 import CustomMarkdown from "@/components/markdown/CustomMarkdown";
@@ -7,26 +7,30 @@ import moment from "moment";
 import { notFound } from "next/navigation";
 import { FaCalendarAlt } from "react-icons/fa";
 
-const page = async ({ params }: { params: { slug: string } }) => {
 
-    const articleWithCategory = await getArticle(params.slug);
-    if (!articleWithCategory) return notFound();
-    const { article, categories } = articleWithCategory;
+export async function generateMetadata({params}: { params: { slug: string } }){
+    const article = await getArticle(params.slug);
 
-    const relatedContent = await getSimilarArticles(article.title);
-
-    const featured = await getFeatured(5).then((awc) => {
-        return {
-            articles: awc.articles.filter(featuredArticle => {
-                for (let related of relatedContent.articles) {
-                    if (related.article.slug == featuredArticle.article.slug) {
-                        return false;
-                    }
-                }
-                return (featuredArticle?.article?.slug != params.slug);
-            }),
-            count: awc.count
+    return {
+        title: article?.title,
+        description: article?.excerpt,
+        alternates: {
+            canonical : `/articles/${article?.slug}`
         }
+    }
+}
+
+const page = async ({ params }: { params: { slug: string } }) => {
+    const article = await getArticle(params.slug);
+
+    if (!article) return notFound();
+    const { categories } = article;
+
+    const featured = await getFeaturedAndExclude(2, article.id);
+
+    const relatedContent = await getSimilarArticles({
+        title : article.title, 
+        exclude: featured.articles.map(a  => a.id)
     });
 
     return (
@@ -34,10 +38,10 @@ const page = async ({ params }: { params: { slug: string } }) => {
             <div className="flex flex-col max-w-3xl w-full gap-2">
                 <div className="flex justify-between text-md">
                     <div className="flex items-center gap-1 text-red-600">
-                        <span><FaCalendarAlt className='text-md' /></span> <span>{moment(article?.createdAt).format('MMM DD, YYYY')}</span>
+                        <span><FaCalendarAlt className='text-md' /></span> <span>{moment(article?.created_at).format('MMM DD, YYYY')}</span>
                     </div>
                     <div className="flex items-center gap-1 text-neutral-500">
-                        <i><span>{article?.readingTime}</span></i>
+                        <i><span>{article?.reading_time}</span></i>
                     </div>
                 </div>
                 <div className="flex flex-col gap-3">
@@ -68,9 +72,9 @@ const page = async ({ params }: { params: { slug: string } }) => {
                             <h1 className="text-xl font-bold text-red-600">RELATED CONTENT</h1>
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 {
-                                    relatedContent.articles.map((articleWithCategory, index) =>
+                                    relatedContent.articles.map((article, index) =>
                                         <li key={"related-article-card-" + index}>
-                                            <MaxiArticleCard article={articleWithCategory.article} categories={articleWithCategory.categories} />
+                                            <MaxiArticleCard article={article} />
                                         </li>
                                     )
                                 }
@@ -85,9 +89,9 @@ const page = async ({ params }: { params: { slug: string } }) => {
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 {
                                     featured.articles
-                                        .map((articleWithCategory, index) =>
+                                        .map((article, index) =>
                                             <li key={"maxi-article-card-" + index}>
-                                                <MaxiArticleCard article={articleWithCategory.article} categories={articleWithCategory.categories} />
+                                                <MaxiArticleCard article={article} />
                                             </li>
                                         )
                                 }

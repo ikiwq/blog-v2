@@ -43,8 +43,10 @@ const PaginationControls: FC<PaginationControlsProps> = (
           disabled={!hasNextPage}
           onClick={() => { router.push(`?page=${Number(page) + 1}`) }}
           className="flex items-center justify-center px-4 h-10 text-base font-medium 
-          text-gray-500 bg-white border border-gray-300 rounded-lg enabled:hover:bg-gray-200 enabled:hover:text-gray-700 
-          dark:bg-neutral-800 dark:border-neutral-700 dark:text-gray-400 dark:enabled:hover:bg-neutral-700 dark:enabled:hover:text-white duration-200">
+          text-gray-500 bg-white border border-gray-300 rounded-lg 
+          enabled:text-gray-900 enabled:hover:bg-gray-200
+          dark:bg-neutral-800 dark:border-neutral-700 dark:text-gray-400 
+          dark:enabled:text-white dark:enabled:hover:bg-neutral-700 duration-200">
           Next
         </button>
       </div>

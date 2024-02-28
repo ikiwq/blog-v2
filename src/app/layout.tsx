@@ -7,9 +7,18 @@ import Footer from '@/components/footer/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Ikiwq blog',
-  description: 'The v2 of the ikiwq blog.',
+export const metadata : Metadata = {
+  title: "Ikiwq Blog",
+  description: "Welcome to my blog, where I talk about programming and other interesting stuff.",
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true
+    }
+  }
 }
 
 export default function RootLayout({

@@ -1,18 +1,18 @@
+import { ARTICLES_PATH } from "@/common/constants";
 import CategoryCard from "@/components/category/categoryCard/CategoryCard";
-import { Article, Category } from "@prisma/client";
+import { BlogArticle } from "@/models/article.model";
 import moment from "moment";
 import Link from "next/link";
 import { FaCalendarAlt, FaClock } from "react-icons/fa";
 
 type Props = {
-  article: Article;
-  categories: Array<Category>;
+  article: BlogArticle;
 }
 
 const ArticleCard = (props: Props) => {
   return (
     <div className="flex flex-col gap-1">
-      <Link href={'/article/' + props?.article?.slug}>
+      <Link href={ARTICLES_PATH + props?.article?.slug}>
         <div className="group flex flex-col ">
           <div className="flex flex-col md:flex-row justify-between items-start">
             <h1 className="text-2xl font-bold whitespace-pre-line break-words group-hover:text-red-600 duration-200">
@@ -21,11 +21,11 @@ const ArticleCard = (props: Props) => {
           </div>
           <div className="flex gap-2 text-sm">
             <div className="flex items-center gap-1 text-red-600">
-              <span><FaCalendarAlt className='text-md' /></span> <span>{moment(props?.article?.createdAt).format('MMM DD, YYYY')}</span>
+              <span><FaCalendarAlt className='text-md' /></span> <span>{moment(props?.article?.created_at).format('MMM DD, YYYY')}</span>
             </div>
             <div className="border-r border-red-600 my-0.5"></div>
             <div className="flex items-center gap-1 text-red-600">
-              <span><FaClock className='text-md' /></span> <span>{props?.article?.readingTime}</span>
+              <span><FaClock className='text-md' /></span> <span>{props?.article?.reading_time}</span>
             </div>
           </div>
           <div>
@@ -36,14 +36,14 @@ const ArticleCard = (props: Props) => {
         </div>
       </Link>
       <div className="flex flex-wrap gap-2">
-            {
-              props?.categories && props?.categories.map((category, index) => {
-                return (
-                  <CategoryCard key={"article-category-" + index} category={category} />
-                )
-              })
-            }
-          </div>
+        {
+          props?.article.categories && props?.article.categories.map((category, index) => {
+            return (
+              <CategoryCard key={"article-category-" + index} category={category} />
+            )
+          })
+        }
+      </div>
     </div>
   )
 }

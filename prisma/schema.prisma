@@ -3,41 +3,56 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
-model Category {
-  id            String      @id @default(cuid()) @map("_id")
-  createdAt     DateTime    @default(now())
-  slug          String      @unique
-  title         String
-  description   String
-  img           String?
-  categoryOnModel CategoryOnModel[]
-}
-
 model Article {
-  id              String            @id @default(cuid()) @map("_id")
-  createdAt       DateTime          @default(now())
-  slug            String            @unique
-  title           String
-  excerpt         String
-  content         String
-  img             String?
-  readingTime     String?           @default("0 Min read")
-  views           String            @default("0")
-  featured        String            @default("false")
-  editorsChoice   String            @default("false")
-  categoryOnModel CategoryOnModel[]
-  likes_count     String            @default("0")
-  liked           String            @default("false")
+  id Int @id @default(autoincrement())
+  slug String @db.VarChar(255)
+  title String @db.VarChar(255)
+  excerpt String @db.VarChar(255)
+  img String @db.VarChar(255)
+  reading_time String @db.VarChar(255)
+  featured Boolean
+  editors_choice Boolean
+  created_at DateTime
+  updated_at DateTime
+  published_at DateTime
+  created_by_id Int
+  updated_by_id Int
+  content String @db.LongText
+
+  categories_relations articles_categories[]
+
+  @@map("articles")
 }
 
-model CategoryOnModel {
-  id  String  @id @default(cuid()) @map("_id")
-  articleId String
-  article Article @relation(fields: [articleId], references: [id])
-  categoryId String
-  category Category @relation(fields: [categoryId], references: [id])
+model Category {
+  id Int @id @default(autoincrement())
+  slug String @db.VarChar(255)
+  title String @db.VarChar(255)
+  description String @db.LongText
+  img String @db.VarChar(255)
+  created_at DateTime
+  updated_at DateTime
+  published_at DateTime
+  created_by_id Int
+  updated_by_id Int
+
+  articles_relations articles_categories[]
+
+  @@map("categories")
+}
+
+model articles_categories {
+  id Int @id @default(autoincrement())
+  article Article @relation(fields: [article_id], references: [id])
+  article_id Int
+  category Category @relation(fields: [category_id], references: [id])
+  category_id Int
+  category_order Float
+  article_order Float
+
+  @@map("articles_categories_links")
 }

@@ -1,28 +1,17 @@
 import CategoryMaxiCard from "@/components/category/categoryMaxiCard/MaxiArticleCard"
-import { Category } from "@prisma/client";
 import { notFound } from "next/navigation";
-import { API_URL } from "../../common/constants";
+import { getCategories } from "@/common/functions";
+import { Metadata } from "next";
 
 type Props = {}
 
-const getData = async () : Promise<Array<Category> | undefined> => {
-  try{
-    const res = await fetch(`${API_URL}/api/category/`, {
-      cache: "no-store",
-    });
-    console.log("Request to "+ API_URL)
-    if(!res.ok){
-      return undefined;
-    }
-  
-    return res.json();
-  } catch(err){
-    console.log(err);
-  }
+export const metadata : Metadata = {
+  title: "Latest articles",
+  description: "All the categories inside the Ikiwq Blog",
 }
 
 const page = async (props: Props) => {
-  const data = await getData();
+  const data = await getCategories();
   if(!data) return notFound();
 
   return (

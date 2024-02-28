@@ -9,10 +9,22 @@ type Props = {
   params: { slug: string }
 }
 
-const getData = async (page: number, categorySlug : string) => {
-  return executeArticleQuery(`${API_URL}/api/article?page=${page}&category=${categorySlug}`);
+export async function generateMetadata(props : Props){
+  const page = props.searchParams['page'] ?? '1';
+  const category = await getCategory(props?.params?.slug);
+
+  return {
+      title: `${category?.title} | Page ${page}`,
+      description: category?.description,
+      alternates: {
+          canonical : `/categories/${category?.slug}?page=${page}`
+      }
+  }
 }
 
+const getData = async (page: number, categorySlug : string) => {
+  return executeArticleQuery(`${API_URL}/api/articles?page=${page}&category=${categorySlug}`);
+}
 
 const page = async (props: Props) => {
   const page = props.searchParams['page'] ?? '1';
@@ -27,15 +39,15 @@ const page = async (props: Props) => {
   const articlesWithCategories = await getData(Number(page), category.slug);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex w-full justify-center relative mt-8 md:mt-0 pb-8 min-h-screen">
+    <div className="flex flex-col min-h-screen">
+      <div className="flex w-full justify-center relative mt-8 md:mt-0 pb-8">
         <div className="flex flex-col w-full max-w-3xl">
           <h1 className="text-xl font-bold text-red-600">{category?.title}</h1>
           <div className="grid grid-cols  gap-2">
             {
               articlesWithCategories?.articles.map((article, index) => {
                 return (
-                  <ArticleCard key={"article-card-" + index} article={article.article} categories={article.categories} />
+                  <ArticleCard key={"article-card-" + index} article={article} />
                 )
               })
             }
