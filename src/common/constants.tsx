@@ -24,6 +24,7 @@ export const ARTICLES_PATH = "/articles/"
 export const CATEGORIES_PATH = "/categories/"
 
 export const CACHE_ONE_DAY = 86400
+export const CACHE_TEN_MINUTES = 600
 
 export class TypeOfInfo {
     public static readonly DO = new TypeOfInfo("do", <BiCheckCircle />);

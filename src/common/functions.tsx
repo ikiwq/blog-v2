@@ -1,5 +1,5 @@
 import { ArticlesWithCount, BlogArticle, FindSimilarRequest } from "@/models/article.model";
-import { API_URL, CACHE_ONE_DAY, MOBILE_MENU_ID } from "./constants"
+import { API_URL, CACHE_ONE_DAY, CACHE_TEN_MINUTES, MOBILE_MENU_ID } from "./constants"
 import { Article, Category } from "@prisma/client";
 
 export const toggleMobileMenu = () => {
@@ -13,7 +13,7 @@ export const getCategory = async(slug : string) : Promise<Category | undefined> 
     try{
         const res = await fetch(`${API_URL}/api/categories/${slug}`, {
             next: {
-                revalidate: CACHE_ONE_DAY
+                revalidate: CACHE_TEN_MINUTES
             }
         })
     
@@ -31,7 +31,7 @@ export const getCategories = async (): Promise<Array<Category> | undefined> => {
     try{
         const res = await fetch(`${API_URL}/api/categories/`, {
             next: {
-                revalidate: CACHE_ONE_DAY
+                revalidate: CACHE_TEN_MINUTES
             }
         });
     
@@ -49,7 +49,7 @@ export const getArticle = async (slug: string): Promise<BlogArticle | undefined>
     try{
         const res = await fetch(`${API_URL}/api/articles/${slug}`, {
             next: {
-                revalidate: CACHE_ONE_DAY
+                revalidate: CACHE_TEN_MINUTES
             }
         });
     
@@ -67,7 +67,7 @@ export const executeArticleQuery = async (url: string): Promise<ArticlesWithCoun
     try{
         const res = await fetch(url, {
             next: {
-                revalidate: CACHE_ONE_DAY
+                revalidate: CACHE_TEN_MINUTES
             }
         });
     
@@ -94,7 +94,7 @@ export const executeArticleQueryWithBody = async (url: string, body : any): Prom
             method: "POST",
             body: JSON.stringify(body),
             next: {
-                revalidate: CACHE_ONE_DAY
+                revalidate: CACHE_TEN_MINUTES
             }
         });
     
