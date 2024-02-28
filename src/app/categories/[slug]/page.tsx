@@ -17,7 +17,11 @@ export async function generateMetadata(props : Props){
       title: `${category?.title} | Page ${page}`,
       description: category?.description,
       alternates: {
-          canonical : `/categories/${category?.slug}?page=${page}`
+        canonical : `/categories/${category?.slug}?page=${page}`
+      },
+      openGraph: {
+        title: `${category?.title} | Page ${page}`,
+        description: category?.description,
       }
   }
 }

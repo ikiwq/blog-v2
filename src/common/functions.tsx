@@ -12,7 +12,9 @@ export const toggleMobileMenu = () => {
 export const getCategory = async(slug : string) : Promise<Category | undefined> => {
     try{
         const res = await fetch(`${API_URL}/api/categories/${slug}`, {
-            cache: "default",
+            next: {
+                revalidate: CACHE_ONE_DAY
+            }
         })
     
         if(!res.ok){
@@ -28,7 +30,9 @@ export const getCategory = async(slug : string) : Promise<Category | undefined> 
 export const getCategories = async (): Promise<Array<Category> | undefined> => {
     try{
         const res = await fetch(`${API_URL}/api/categories/`, {
-            cache: "default",
+            next: {
+                revalidate: CACHE_ONE_DAY
+            }
         });
     
         if (!res.ok) {
@@ -44,7 +48,6 @@ export const getCategories = async (): Promise<Array<Category> | undefined> => {
 export const getArticle = async (slug: string): Promise<BlogArticle | undefined> => {
     try{
         const res = await fetch(`${API_URL}/api/articles/${slug}`, {
-            cache: "default",
             next: {
                 revalidate: CACHE_ONE_DAY
             }
@@ -63,7 +66,9 @@ export const getArticle = async (slug: string): Promise<BlogArticle | undefined>
 export const executeArticleQuery = async (url: string): Promise<ArticlesWithCount | { articles : [], count : number}> => {
     try{
         const res = await fetch(url, {
-            cache: "default",
+            next: {
+                revalidate: CACHE_ONE_DAY
+            }
         });
     
         if (!res.ok) {
@@ -88,7 +93,9 @@ export const executeArticleQueryWithBody = async (url: string, body : any): Prom
         const res = await fetch(url, {
             method: "POST",
             body: JSON.stringify(body),
-            cache: "no-store",
+            next: {
+                revalidate: CACHE_ONE_DAY
+            }
         });
     
         if (!res.ok) {

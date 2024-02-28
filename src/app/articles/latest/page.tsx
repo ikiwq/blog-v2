@@ -11,7 +11,11 @@ type Props = {
 
 export const metadata : Metadata = {
   title: "Latest articles",
-  description: "Latest articles from the Ikiwq Blog."
+  description: "Latest articles from the Ikiwq Blog.",
+  openGraph: {
+    title: "Latest articles",
+    description: "Latest articles from the Ikiwq Blog.",
+  }
 }
 
 const page = async (props: Props) => {

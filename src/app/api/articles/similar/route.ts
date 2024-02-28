@@ -31,7 +31,7 @@ const formatArticle = async (article : any) => {
 
 export const POST = async (req: NextRequest) => {
     const body : FindSimilarRequest = await req.json();
-    console.log(body.exclude.join(","))
+
     try {
         const articles : Array<Article> = await prisma.$queryRaw<Array<Article>>(
             Prisma.sql`
