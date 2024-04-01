@@ -1,6 +1,6 @@
-import { ArticlesWithCount, BlogArticle, FindSimilarRequest } from "@/models/article.model";
-import { API_URL, CACHE_ONE_DAY, CACHE_TEN_MINUTES, MOBILE_MENU_ID } from "./constants"
-import { Article, Category } from "@prisma/client";
+import { Article, ArticlesCollection } from "@/models/article.model";
+import { Category, CategoryCollection } from "@/models/category.model";
+import { API_URL, CACHE_ONE_HOUR, MOBILE_MENU_ID, POST_PER_PAGE } from "./constants";
 
 export const toggleMobileMenu = () => {
     const menu = document.getElementById(MOBILE_MENU_ID);
@@ -11,9 +11,9 @@ export const toggleMobileMenu = () => {
 
 export const getCategory = async(slug : string) : Promise<Category | undefined> => {
     try{
-        const res = await fetch(`${API_URL}/api/categories/${slug}`, {
+        const res = await fetch(`${API_URL}/categories/${slug}`, {
             next: {
-                revalidate: CACHE_TEN_MINUTES
+                revalidate: CACHE_ONE_HOUR
             }
         })
     
@@ -27,11 +27,11 @@ export const getCategory = async(slug : string) : Promise<Category | undefined> 
     }
 }
 
-export const getCategories = async (): Promise<Array<Category> | undefined> => {
+export const getCategories = async (): Promise<CategoryCollection | undefined> => {
     try{
-        const res = await fetch(`${API_URL}/api/categories/`, {
+        const res = await fetch(`${API_URL}/categories`, {
             next: {
-                revalidate: CACHE_TEN_MINUTES
+                revalidate: CACHE_ONE_HOUR
             }
         });
     
@@ -45,11 +45,11 @@ export const getCategories = async (): Promise<Array<Category> | undefined> => {
     }
 }
 
-export const getArticle = async (slug: string): Promise<BlogArticle | undefined> => {
+export const getArticle = async (slug: string): Promise<Article | undefined> => {
     try{
-        const res = await fetch(`${API_URL}/api/articles/${slug}`, {
+        const res = await fetch(`${API_URL}/articles/${slug}`, {
             next: {
-                revalidate: CACHE_TEN_MINUTES
+                revalidate: CACHE_ONE_HOUR
             }
         });
     
@@ -63,11 +63,11 @@ export const getArticle = async (slug: string): Promise<BlogArticle | undefined>
     }
 }
 
-export const executeArticleQuery = async (url: string): Promise<ArticlesWithCount | { articles : [], count : number}> => {
+export const executeArticleQuery = async (url: string): Promise<ArticlesCollection | { articles : [], count : number}> => {
     try{
         const res = await fetch(url, {
             next: {
-                revalidate: CACHE_TEN_MINUTES
+                revalidate: CACHE_ONE_HOUR
             }
         });
     
@@ -88,13 +88,13 @@ export const executeArticleQuery = async (url: string): Promise<ArticlesWithCoun
     }
 }
 
-export const executeArticleQueryWithBody = async (url: string, body : any): Promise<ArticlesWithCount | { articles : [], count : number}> => {
+export const executeArticleQueryWithBody = async (url: string, body : any): Promise<ArticlesCollection | { articles : [], count : number}> => {
     try{
         const res = await fetch(url, {
             method: "POST",
             body: JSON.stringify(body),
             next: {
-                revalidate: CACHE_TEN_MINUTES
+                revalidate: CACHE_ONE_HOUR
             }
         });
     
@@ -115,26 +115,26 @@ export const executeArticleQueryWithBody = async (url: string, body : any): Prom
     }
 }
 
-export const getRecentArticles = async (page : number): Promise<ArticlesWithCount | undefined> => {
-    return executeArticleQuery(`${API_URL}/api/articles?page=${page}`);
+export const getRecentArticles = async (page : number): Promise<ArticlesCollection | undefined> => {
+    return executeArticleQuery(`${API_URL}/articles?page=${page}&take=${POST_PER_PAGE}`);
 }
 
-export const getUnmarkedRecentArticles = async (limit : number): Promise<ArticlesWithCount | undefined> => {
-    return executeArticleQuery(`${API_URL}/api/articles?featured=false&editorschoice=false&limit=${limit}`);
+export const getUnmarkedRecentArticles = async (limit : number): Promise<ArticlesCollection | undefined> => {
+    return executeArticleQuery(`${API_URL}/articles?featured=false&editorschoice=false&limit=${limit}`);
 }
 
-export const getFeatured = async (limit : number): Promise<ArticlesWithCount> => {
-    return executeArticleQuery(`${API_URL}/api/articles?featured=true&limit=${limit}`)
+export const getFeatured = async (limit : number): Promise<ArticlesCollection> => {
+    return executeArticleQuery(`${API_URL}/articles?featured=true&limit=${limit}`)
 }
 
-export const getFeaturedAndExclude = async (limit : number, exclude : number): Promise<ArticlesWithCount> => {
-    return executeArticleQuery(`${API_URL}/api/articles?featured=true&limit=${limit}&exclude=${exclude}`)
+export const getFeaturedAndExclude = async (limit : number, exclude : number): Promise<ArticlesCollection> => {
+    return executeArticleQuery(`${API_URL}/articles?featured=true&limit=${limit}&exclude=${exclude}`)
 }
 
-export const getSimilarArticles = async (body : FindSimilarRequest): Promise<ArticlesWithCount> => {
-    return executeArticleQueryWithBody(`${API_URL}/api/articles/similar`, body)
+export const getSimilarArticles = async (slug : string): Promise<ArticlesCollection> => {
+    return executeArticleQuery(`${API_URL}/articles/${slug}/similar?take=2`)
 }
 
-export const getArticleByCategory = async(categorySlug : string) => {
-    return executeArticleQuery(`${API_URL}/api/articles?category=${categorySlug}`)
+export const getArticleByCategory = async(categorySlug : string, page : number) : Promise<ArticlesCollection> => {
+    return executeArticleQuery(`${API_URL}/categories/${categorySlug}/articles?take=${POST_PER_PAGE}&page=${page}`)
 }

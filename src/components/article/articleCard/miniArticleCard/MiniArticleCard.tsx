@@ -1,6 +1,5 @@
 import { ARTICLES_PATH } from "@/common/constants"
-import CategoryCard from "@/components/category/categoryCard/CategoryCard"
-import { Article, Category } from "@prisma/client"
+import { Article } from "@/models/article.model"
 import moment from "moment"
 import Link from "next/link"
 
@@ -11,14 +10,14 @@ type Props = {
 const MiniArticleCard = (props: Props) => {
   return (
     <div className="flex gap-4 items-center">
-      <Link href={ARTICLES_PATH + '/${props.article.slug}'}>
+      <Link aria-label={`${props.article.title}`} href={ARTICLES_PATH + props.article.slug}>
         <div className="w-14 h-14 cursor-pointer min-w-fit">
-          <img className="w-14 h-14 rounded-full object-center object-cover" src={props.article.img || ""} />
+          <img className="w-14 h-14 rounded-full object-center object-cover" alt={props.article.title} src={props.article.img || ""} />
         </div>
       </Link>
 
       <div className="flex flex-col gap-1">
-        <Link href={ARTICLES_PATH + props.article.slug} className="group">
+        <Link aria-label={`${props.article.title}`} href={ARTICLES_PATH + props.article.slug} className="group">
           <div>
             <p className="text-sm text-neutral-500">
               <span>{moment(props?.article?.created_at).format('MMM DD, YYYY')} | </span>

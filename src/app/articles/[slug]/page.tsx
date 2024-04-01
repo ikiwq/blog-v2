@@ -1,5 +1,5 @@
 
-import { getArticle, getFeaturedAndExclude, getSimilarArticles } from "@/common/functions";
+import { getArticle, getSimilarArticles } from "@/common/functions";
 import MaxiArticleCard from "@/components/article/articleCard/maxiArticleCard/MaxiArticleCard";
 import CategoryCard from "@/components/category/categoryCard/CategoryCard";
 import CustomMarkdown from "@/components/markdown/CustomMarkdown";
@@ -30,12 +30,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
     if (!article) return notFound();
     const { categories } = article;
 
-    const featured = await getFeaturedAndExclude(2, article.id);
-
-    const relatedContent = await getSimilarArticles({
-        title : article.title, 
-        exclude: featured.articles.map(a  => a.id)
-    });
+    const relatedContent = await getSimilarArticles(params.slug);
 
     return (
         <div className="flex w-full justify-center relative mt-8 md:mt-0">
@@ -53,7 +48,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
                         <h1 className="text-2xl lg:text-4xl font-bold">{article?.title}</h1>
                     </div>
                     {
-                        categories.length > 0 && (
+                        categories?.length > 0 && (
                             <ul className='flex flex-wrap gap-2'>
                                 {categories.map((category, index) =>
                                     <li key={"category-card-" + index}>
@@ -64,14 +59,14 @@ const page = async ({ params }: { params: { slug: string } }) => {
                         )
                     }
                     <div className="w-full">
-                        <img className="w-full object-cover" style={{ maxHeight: "496px" }} src={article?.img || ""} />
+                        <img className="w-full object-cover" style={{ maxHeight: "496px" }} alt={article?.title} src={article?.img || ""} />
                     </div>
                 </div>
                 <div className="mt-1 pb-6 prose-pre:-mb-8 prose-pre:-mt-6 prose dark:prose-invert prose-li:marker:text-red-600 prose-pre:bg-transparent lg:prose-lg w-full duration-200" >
                     <CustomMarkdown content={article.content} />
                 </div>
                 {
-                    relatedContent.articles.length > 0 && (
+                    relatedContent?.articles?.length > 0 && (
                         <div>
                             <h1 className="text-xl font-bold text-red-600">RELATED CONTENT</h1>
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -86,8 +81,8 @@ const page = async ({ params }: { params: { slug: string } }) => {
                         </div>
                     )
                 }
-                {
-                    featured.articles.length > 0 && (
+                {/* {
+                    featured?.articles.length > 0 && (
                         <div className="">
                             <h1 className="text-xl font-bold text-red-600">FEATURED</h1>
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -102,7 +97,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
                             </ul>
                         </div>
                     )
-                }
+                } */}
             </div>
         </div>
     )

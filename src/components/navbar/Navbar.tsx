@@ -14,7 +14,7 @@ const Navbar = (props: Props) => {
         <CiMenuBurger />
       </div>
       <div className='flex gap-4 items-center h-full'>
-        <Link href={"/"} className='flex items-center'>
+        <Link aria-label={`Homepage`}  href={"/"} className='flex items-center'>
           <h1 className="text-5xl font-handwrite md:pl-0 pl-4 duration-200">
             Iki
           </h1>
@@ -22,9 +22,9 @@ const Navbar = (props: Props) => {
         <div className='hidden md:block border-r border-black dark:border-white h-5/6'></div>
         <div className='hidden md:block'>
           <li className="list-none flex gap-5 text-xl font-semibold">
-            <ul className='hover:text-red-600 duration-200 cursor-pointer flex items-center gap-1'><Link href={CATEGORIES_PATH}>Categories</Link></ul>
-            <ul className='hover:text-red-600 duration-200 cursor-pointer'><Link href={ARTICLES_PATH + "latest/"}>Latest</Link></ul>
-            <ul className='hover:text-red-600 duration-200 cursor-pointer'><a href={PORTFOLIO_URL} target="_blank" rel='noreferr'>About</a></ul>
+            <ul className='hover:text-red-600 duration-200 cursor-pointer flex items-center gap-1'><Link aria-label={`All categories`}  href={CATEGORIES_PATH}>Categories</Link></ul>
+            <ul className='hover:text-red-600 duration-200 cursor-pointer'><Link aria-label={`Latest articles`}  href={ARTICLES_PATH + "latest/"}>Latest</Link></ul>
+            <ul className='hover:text-red-600 duration-200 cursor-pointer'><a aria-label={`My portfolio`}  href={PORTFOLIO_URL} target="_blank" rel='noreferr'>About</a></ul>
           </li>
         </div>
       </div>

@@ -5,6 +5,7 @@ import CategoryCard from '@/components/category/categoryCard/CategoryCard';
 
 export default async function Home() {
   let recentPosts = await getUnmarkedRecentArticles(15);
+
   let categories = await getCategories();
   let featuredArticles = await getFeatured(5);
 
@@ -15,7 +16,7 @@ export default async function Home() {
           <h1 className='text-lg font-bold text-red-600'>MOST RECENT</h1>
           <div className='flex flex-col gap-5'>
             {
-              recentPosts && recentPosts.articles.map((article, index) =>
+              recentPosts?.articles && recentPosts.articles.map((article, index) =>
                 <ArticleCard key={"most-recent-" + index} article={article} />
               )
             }

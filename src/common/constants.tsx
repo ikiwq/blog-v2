@@ -14,7 +14,7 @@ export const MOBILE_MENU_ID = "mobile_menu";
 
 export const PORTFOLIO_URL = "https://ikiwq-portfolio.vercel.app";
 
-export const POST_PER_PAGE = 7;
+export const POST_PER_PAGE = 10;
 
 export const API_URL = process.env.PUBLIC_API_URL;
 
@@ -24,6 +24,7 @@ export const ARTICLES_PATH = "/articles/"
 export const CATEGORIES_PATH = "/categories/"
 
 export const CACHE_ONE_DAY = 86400
+export const CACHE_ONE_HOUR = 1
 export const CACHE_TEN_MINUTES = 600
 
 export class TypeOfInfo {

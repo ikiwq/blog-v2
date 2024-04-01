@@ -1,18 +1,18 @@
 import { ARTICLES_PATH } from "@/common/constants";
 import CategoryCard from "@/components/category/categoryCard/CategoryCard";
-import { BlogArticle } from "@/models/article.model";
+import { Article } from "@/models/article.model";
 import moment from "moment";
 import Link from "next/link";
 import { FaCalendarAlt, FaClock } from "react-icons/fa";
 
 type Props = {
-  article: BlogArticle;
+  article: Article;
 }
 
 const ArticleCard = (props: Props) => {
   return (
     <div className="flex flex-col gap-1">
-      <Link href={ARTICLES_PATH + props?.article?.slug}>
+      <Link aria-label={`${props?.article.title}`} href={ARTICLES_PATH + props?.article?.slug}>
         <div className="group flex flex-col ">
           <div className="flex flex-col md:flex-row justify-between items-start">
             <h1 className="text-2xl font-bold whitespace-pre-line break-words group-hover:text-red-600 duration-200">

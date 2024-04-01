@@ -1,7 +1,8 @@
-import { API_URL, POST_PER_PAGE } from "@/common/constants";
-import { executeArticleQuery, getArticleByCategory, getCategory } from "@/common/functions"
-import ArticleCard from "@/components/article/articleCard/ArticleCard"
+import { POST_PER_PAGE } from "@/common/constants";
+import { getArticleByCategory, getCategory } from "@/common/functions";
+import ArticleCard from "@/components/article/articleCard/ArticleCard";
 import PaginationControls from "@/components/paginationController/PaginationControls";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type Props = {
@@ -26,10 +27,6 @@ export async function generateMetadata(props : Props){
   }
 }
 
-const getData = async (page: number, categorySlug : string) => {
-  return executeArticleQuery(`${API_URL}/api/articles?page=${page}&category=${categorySlug}`);
-}
-
 const page = async (props: Props) => {
   const page = props.searchParams['page'] ?? '1';
 
@@ -40,7 +37,8 @@ const page = async (props: Props) => {
   if(category == null){
     return notFound();
   }
-  const articlesWithCategories = await getData(Number(page), category.slug);
+
+  const articlesCollection = await getArticleByCategory(category.slug, Number(page))
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -49,7 +47,7 @@ const page = async (props: Props) => {
           <h1 className="text-xl font-bold text-red-600">{category?.title}</h1>
           <div className="grid grid-cols  gap-2">
             {
-              articlesWithCategories?.articles.map((article, index) => {
+              articlesCollection?.articles?.map((article, index) => {
                 return (
                   <ArticleCard key={"article-card-" + index} article={article} />
                 )
@@ -58,11 +56,23 @@ const page = async (props: Props) => {
           </div>
         </div>
       </div>
-      <PaginationControls
-          hasNextPage={end < articlesWithCategories?.count}
+      {
+        articlesCollection.articles ? (
+          <PaginationControls
+          hasNextPage={end < articlesCollection?.count}
           hasPrevPage={start > 0}
-          totalElements={articlesWithCategories?.count}
-        />
+          totalElements={articlesCollection?.count}
+          />
+        ) : 
+        (
+          <div>
+            <h1 className="text-center text-xl">
+              <span>There are still no articles here. Go back to the </span>
+              <span className="underline"><Link href={"/"}>homepage.</Link></span>
+            </h1>
+          </div>
+        )
+      }
     </div>
   )
 }

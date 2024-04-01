@@ -1,15 +1,31 @@
-import { Article, Category } from "@prisma/client";
+import { Category } from "./category.model";
 
-export type BlogArticle = Article & {
-    categories: Array<Category>
+export interface Article {
+  id: number;
+
+  slug: string;
+  title: string;
+  excerpt: string;
+
+  img: string;
+
+  reading_time: string;
+  featured: boolean;
+  editors_choice: boolean;
+
+  created_at: Date;
+  updated_at: Date;
+  published_at: Date;
+
+  created_by_id: number;
+  updated_by_id: number;
+
+  content: string;
+
+  categories: Array<Category>
 }
 
-export type ArticlesWithCount = {
-    articles : Array<BlogArticle>;
-    count : number;
-}
-
-export type FindSimilarRequest = {
-    title : string,
-    exclude : Array<number>
+export interface ArticlesCollection {
+  articles : Array<Article>;
+  count : number;
 }
