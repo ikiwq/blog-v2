@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The ikiwq blog
+### Overview
+This is the second iteration of my Blog. The [first iteration](https://github.com/ikiwq/blog-v1) can be found here. This project is built using NextJS to provide SSR rendering and an eccelent CEO. The project relies on the blog-api that can be found [here](https://github.com/ikiwq/blog-api).
+#### Built with
+[![My Skills](https://skillicons.dev/icons?i=nextjs,react,tailwind&theme=light)](https://skillicons.dev)
+#### Screenshots
 
-## Getting Started
+##### Dark Mode
+<p float="left">
+   <img src="https://github.com/ikiwq/blog/assets/110495658/4c467ab4-07f1-4fa5-b4bc-dba9ef4eb368" height="300" width="400">
+   <img src="https://github.com/ikiwq/blog/assets/110495658/12aa4eba-5312-430a-8229-d717830b4987" height="300" width="400">
+   <img src="https://github.com/ikiwq/blog/assets/110495658/52a80c65-aa50-49f7-b551-b9b7229e7d58" height="300" width="400">
+   <img src="https://github.com/ikiwq/blog/assets/110495658/1419bdbf-11de-495f-9563-0ff0917403be" height="300" width="400">
+</p>
 
-First, run the development server:
+##### Light mode
+<p>
+  <img src="https://github.com/ikiwq/blog/assets/110495658/3bd18f9c-fb13-42d2-941c-8da1bff1c9cd" height="300" width="400">
+  <img src="https://github.com/ikiwq/blog/assets/110495658/bbe274af-7b8e-4865-b2fc-9ab2b1ad0bc0" height="300" width="400">
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Requisites
+- Node v. 16.x or higher (or any other package manager that supports all the dependencies listed in the package.json).
+
+### Installation
+First, clone the repository:
+```
+  git clone https://github.com/ikiwq/blog.git
+```
+Navigate to the cloned repository's directory and run:
+```
+  npm i
+```
+to install all the libraries. Remember to use the package manager of your choice.
+
+Finally, in your .env file, you should add an API URL where the blog will retrieve data from.
+```
+PUBLIC_API_URL = "localhost:8080/api/v1"
+```
+#### Test server
+To start the development server, run
+```
+  npm run dev
+```
+#### Building
+To build the project, run:
+```
+  npm run build
+```
+Then, you can start the production server by running
+```
+  npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Licensing
+This project is licensed under the MIT license.
