@@ -11,7 +11,8 @@ export const metadata : Metadata = {
   openGraph: {
     title: "Latest articles",
     description: "All the categories of the Ikiwq Blog",
-  }
+  },
+  metadataBase: new URL(process.env.PUBLIC_BASE_URL!),
 }
 
 const page = async (props: Props) => {
