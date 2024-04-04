@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata : Metadata = {
   title: "Ikiwq Blog",
   description: "Welcome to my blog, where I talk about programming and other interesting stuff.",
-  metadataBase: new URL("https://blog.ikiwq.it"),
+  metadataBase: new URL(process.env.PUBLIC_BASE_URL || ""),
   openGraph: {
     title: "Ikiwq Blog",
     description: "Welcome to my blog, where I talk about programming and other interesting stuff."

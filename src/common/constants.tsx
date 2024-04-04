@@ -12,7 +12,7 @@ export const THEME_DARK = "dark";
 
 export const MOBILE_MENU_ID = "mobile_menu";
 
-export const PORTFOLIO_URL = "https://ikiwq-portfolio.vercel.app";
+export const PORTFOLIO_URL = "https://portfolio.ikiwq.it";
 
 export const POST_PER_PAGE = 10;
 
