@@ -1,26 +1,26 @@
 'use client';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import './themebutton.css'
-import { THEME_DARK } from '@/common/constants';
+import {THEME_DARK} from '@/common/constants';
 
 type Props = {}
 
 const ThemeButton = (props: Props) => {
     const [checked, setChecked] = useState(true);
 
-    useEffect(()=>{
+    useEffect(() => {
         let prefersDark;
-        if(localStorage.getItem("prefersDark") == undefined){
+        if (localStorage.getItem("prefersDark") == undefined) {
             localStorage.setItem("prefersDark", "true");
             prefersDark = true;
-        }else{
+        } else {
             prefersDark = localStorage.getItem("prefersDark") === "true";
         }
 
-        if(prefersDark){
+        if (prefersDark) {
             setChecked(true);
             document.documentElement.classList.add(THEME_DARK);
-        }else{
+        } else {
             setChecked(false)
             document.documentElement.classList.remove(THEME_DARK);
         }
@@ -29,22 +29,25 @@ const ThemeButton = (props: Props) => {
     const changeTheme = () => {
         document.documentElement.classList.toggle("dark");
         setChecked(!checked);
-        if(checked == true){
+        if (checked == true) {
             localStorage.setItem("prefersDark", "false")
-        }else{
+        } else {
             localStorage.setItem("prefersDark", "true")
         }
     }
 
     return (
         <>
-            <input 
-            checked={checked} 
-            type="checkbox" 
-            onChange={() => changeTheme()}
-            id="darkmode-toggle"/>
-            <label htmlFor="darkmode-toggle"
-                className="rounded-full cursor-pointer"></label>
+            <input
+                checked={checked}
+                type="checkbox"
+                onChange={() => changeTheme()}
+                id="darkmode-toggle"
+            />
+            <label
+                htmlFor="darkmode-toggle"
+                className="rounded-full cursor-pointer"
+            />
         </>
     )
 }

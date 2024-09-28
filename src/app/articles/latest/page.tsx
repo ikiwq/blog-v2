@@ -1,14 +1,14 @@
-import { POST_PER_PAGE } from "@/common/constants"
-import { getRecentArticles } from "@/common/functions"
+import {POST_PER_PAGE} from "@/common/constants"
+import {getRecentArticles} from "@/common/functions"
 import ArticleCard from "@/components/article/articleCard/ArticleCard"
 import PaginationControls from "@/components/paginationController/PaginationControls"
-import { Metadata } from "next"
+import {Metadata} from "next"
 
 type Props = {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: {[key: string]: string | string[] | undefined}
 }
 
-export const metadata : Metadata = {
+export const metadata: Metadata = {
   title: "Latest articles",
   description: "Latest articles from the Ikiwq Blog.",
   openGraph: {
