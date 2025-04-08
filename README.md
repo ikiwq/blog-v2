@@ -1,6 +1,6 @@
 # The ikiwq blog
 ### Overview
-This is the second iteration of my Blog. The [first iteration](https://github.com/ikiwq/blog-v1) can be found here. This project is built using NextJS to provide SSR rendering and an eccelent CEO. The project relies on the blog-api that can be found [here](https://github.com/ikiwq/blog-api).
+This is the second iteration of my Blog. The [first iteration](https://github.com/ikiwq/blog-v1) can be found here. This project is built using NextJS to provide SSR rendering and an eccelent CEO. The project relies on the blog-api that can be found [here](https://github.com/ikiwq/blog-api-v1).
 #### Built with
 [![My Skills](https://skillicons.dev/icons?i=nextjs,react,tailwind&theme=light)](https://skillicons.dev)
 #### Screenshots
